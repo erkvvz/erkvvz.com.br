@@ -98,8 +98,8 @@ Minimalista, editorial e escura, como uma publicação digital ou um estúdio cr
 
 - **Escuro, mas não preto puro.** Fundo grafite quase preto, texto em branco quebrado e uma escala de cinzas.
 - **Tipografia forte.** Quando não houver imagem, a tipografia é a imagem.
-- **Três fontes, cada uma com um papel:** uma de destaque para títulos e para o ERK., uma confortável para leitura, e uma monoespaçada para detalhes como datas, tecnologias e BPM.
-- **Pouca ou nenhuma cor.** Se houver uma cor de destaque, ela aparece em raros momentos.
+- **Três fontes, cada uma com um papel:** Instrument Serif para títulos e para o ERK., Geist para leitura e interface, e Geist Mono para detalhes como datas, tecnologias e BPM.
+- **Preto, branco e vinho.** O vinho é o único destaque e aparece pontualmente: em detalhes, interações e elementos gráficos.
 - **O ponto como assinatura.** O `.` de ERK. pode marcar a seção ativa, indicar carregamento e pulsar quando uma música estiver tocando.
 - **Catálogo numerado.** Projetos, beats e textos recebem números, como um selo de discos: `001`, `B-001`, `J-001`.
 - **Cada área tem o seu ritmo,** dentro do mesmo sistema: projetos em grade, música como tracklist, fotos em destaque e textos numa coluna de leitura confortável.
@@ -159,7 +159,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | 1 | Ambiente: VS Code, Git e repositório no GitHub | Concluída |
 | 2 | Estrutura de pastas e página inicial em HTML semântico, sem estilo | Concluída |
 | 3 | Site no ar em `erkvvz.com.br` com HTTPS | Concluída |
-| 4 | Sistema de design: cores, fontes e espaçamentos | |
+| 4 | Sistema de design: cores, fontes e espaçamentos | Concluída |
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | |
 | 6 | Página inicial, primeira versão | |
 | 7 | Sobre, com meus conhecimentos técnicos | |
@@ -173,7 +173,6 @@ Coloco o site no ar cedo, na entrega 3, para aprender deploy, DNS e HTTPS enquan
 
 ## 9. O que ainda estou decidindo
 
-- As fontes e se haverá uma cor de destaque.
 - A frase de apresentação da página inicial.
 - Como organizar a seção de fotografia.
 - Como apresentar os beats que já tenho.

@@ -1,0 +1,167 @@
+/* ==========================================================================
+   Base
+   Estilos gerais que valem para o site inteiro.
+   Usa os tokens de tokens.css (tudo que começa com var(--...)).
+   ========================================================================== */
+
+/* ---- Ajustes iniciais (reset) -------------------------------------------
+   Cada navegador vem com margens e tamanhos próprios. Estas regras deixam
+   o ponto de partida igual em todos. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* largura inclui borda e espaçamento interno */
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* impede o celular de aumentar o texto sozinho */
+  text-size-adjust: 100%;
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%; /* imagens nunca passam da largura da tela */
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit; /* campos de formulário usam a mesma fonte do site */
+}
+
+/* ---- Página -------------------------------------------------------------- */
+
+body {
+  min-height: 100vh;
+  padding-inline: var(--margem-lateral);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  line-height: var(--altura-linha-texto);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Títulos ------------------------------------------------------------- */
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 400; /* a Instrument Serif só tem o peso normal */
+  line-height: var(--altura-linha-titulo);
+  letter-spacing: -0.01em;
+  text-wrap: balance; /* distribui as palavras entre as linhas */
+}
+
+h1 { font-size: var(--titulo-1); }
+h2 { font-size: var(--titulo-2); }
+h3 { font-size: var(--titulo-3); }
+
+/* ---- Texto --------------------------------------------------------------- */
+
+p {
+  max-width: var(--largura-leitura);
+  text-wrap: pretty; /* evita uma palavra sozinha na última linha */
+}
+
+small {
+  font-size: var(--texto-pequeno);
+}
+
+code {
+  font-family: var(--fonte-mono);
+  font-size: 0.9em;
+}
+
+/* ---- Links --------------------------------------------------------------- */
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--cor-texto-fraco);
+  transition: color var(--duracao-rapida) var(--curva-suave),
+              text-decoration-color var(--duracao-rapida) var(--curva-suave);
+}
+
+a:hover {
+  color: var(--cor-vinho-vivo);
+  text-decoration-color: currentColor;
+}
+
+/* ---- Foco do teclado -----------------------------------------------------
+   :focus-visible aparece só para quem navega pelo teclado, não no clique. */
+
+:focus-visible {
+  outline: 2px solid var(--cor-vinho-vivo);
+  outline-offset: 3px;
+}
+
+/* ---- Seleção de texto ---------------------------------------------------- */
+
+::selection {
+  background-color: var(--cor-vinho);
+  color: var(--cor-texto);
+}
+
+/* ---- Atalho "Pular para o conteúdo" --------------------------------------
+   Fica fora da tela até receber o foco pelo Tab. */
+
+.pular-conteudo {
+  position: absolute;
+  top: var(--espaco-4);
+  left: var(--espaco-4);
+  z-index: 100;
+  padding: var(--espaco-2) var(--espaco-4);
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.pular-conteudo:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---- Utilitário: esconder visualmente, mas manter para leitores de tela -- */
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Movimento reduzido --------------------------------------------------
+   Quem ativa "reduzir movimento" no sistema não vê animações nem transições. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

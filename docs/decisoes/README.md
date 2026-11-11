@@ -13,3 +13,5 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0005](0005-email-de-contato.md) | E-mail de contato pelo roteamento da Cloudflare | Aceita |
 | [0006](0006-endereco-oficial.md) | Um único endereço oficial, com HTTPS e sem www | Aceita |
 | [0007](0007-dados-pessoais.md) | Não publicar telefone nem e-mail pessoal | Aceita |
+| [0008](0008-sistema-de-design.md) | Sistema de design: cores, fontes e tokens | Aceita |
+| [0009](0009-fontes-no-proprio-site.md) | Fontes hospedadas no próprio site | Aceita |

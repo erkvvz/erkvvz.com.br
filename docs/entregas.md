@@ -56,3 +56,27 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 - O endereço provisório da Cloudflare (`*.workers.dev`) mostrava parte do e-mail da minha conta. Desativei esse endereço.
 
 **Como confirmei que funcionou:** testei cada combinação de endereço (com e sem `www`, com `http` e `https`, cada página) e conferi que todas terminam em `https://erkvvz.com.br`, e que arquivos fora de `public/` não ficam acessíveis.
+
+---
+
+## Entrega 4: sistema de design
+
+**Objetivo:** definir a base visual do site (cores, fontes, tamanhos e espaçamentos) antes de desenhar as páginas.
+
+**O que fiz**
+- Comparei três combinações de fontes e quatro opções de cor de destaque numa página de amostras, vendo cada uma aplicada aos textos do site.
+- Escolhi Instrument Serif, Geist e Geist Mono, com preto, branco e vinho ([decisão 0008](decisoes/0008-sistema-de-design.md)).
+- Criei três arquivos CSS em `public/assets/css/`:
+  - `tokens.css`, com todos os valores visuais como variáveis;
+  - `base.css`, com as regras gerais: fundo, textos, títulos, links, foco do teclado, seleção de texto e movimento reduzido;
+  - `fontes.css`, que aponta para os arquivos das fontes.
+- Baixei as fontes e suas licenças para o próprio site ([decisão 0009](decisoes/0009-fontes-no-proprio-site.md)) e pré-carreguei as duas usadas logo no início da página.
+- O atalho "Pular para o conteúdo" agora fica escondido e só aparece ao apertar Tab.
+
+**Problemas e soluções**
+- O vinho escuro que eu queria tem pouco contraste sobre o preto. Medi o contraste de cada cor e criei dois tons: o vinho para áreas e elementos gráficos, e um vinho mais claro para o que precisa ser visto sobre o fundo.
+- Enquanto as fontes não estavam no site, as páginas usavam as fontes reserva do sistema. Isso mostrou que a lista de fontes reserva em cada token funciona.
+
+**Como confirmei que funcionou:** no navegador, os três arquivos CSS e as quatro fontes carregaram, o fundo e o texto ficaram com as cores certas, o título usa a Instrument Serif, o atalho de teclado aparece só com Tab e a página não vaza para os lados.
+
+**Uma ideia para depois:** um objeto 3D girando na página inicial, a ser avaliado quando chegar a hora.

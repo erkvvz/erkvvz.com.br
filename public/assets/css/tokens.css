@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Tokens de design
+   Todos os valores visuais do site têm um nome e moram aqui.
+   Para mudar uma cor ou um tamanho no site inteiro, basta mudar uma linha.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------------
+     Cores
+     Os números entre parênteses são o contraste com o fundo.
+     Mínimo recomendado para texto: 4.5. Para bordas de foco e ícones: 3.
+     ------------------------------------------------------------------------ */
+  --cor-fundo: #0B0B0B;          /* preto da base, quase puro */
+  --cor-superficie: #141414;     /* áreas elevadas: blocos, player */
+  --cor-borda: #2B2B2B;          /* linhas e divisões (decorativo) */
+
+  --cor-texto: #EDEDE9;          /* branco quebrado (16.8) */
+  --cor-texto-suave: #A8A8A4;    /* textos secundários (8.3) */
+  --cor-texto-fraco: #83837D;    /* metadados, datas, legendas (5.2) */
+
+  /* Vinho: destaque usado pontualmente */
+  --cor-vinho: #8C2236;          /* áreas e elementos gráficos; texto branco por cima (7.5) */
+  --cor-vinho-vivo: #CC5A6C;     /* versão clara para aparecer sobre o preto: foco, hover, o ponto (4.9) */
+
+  /* ------------------------------------------------------------------------
+     Fontes
+     Se a fonte principal não carregar, o navegador usa as seguintes da lista.
+     ------------------------------------------------------------------------ */
+  --fonte-titulo: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --fonte-texto: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-mono: "Geist Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  /* ------------------------------------------------------------------------
+     Tamanhos de texto
+     clamp(mínimo, ideal, máximo): o tamanho acompanha a largura da tela,
+     sem passar dos limites. 1rem = 16px no padrão do navegador.
+     ------------------------------------------------------------------------ */
+  --texto-pequeno: 0.8125rem;                         /* 13px: metadados */
+  --texto-base: 1.0625rem;                            /* 17px: leitura */
+  --texto-grande: 1.25rem;                            /* 20px: destaques */
+  --titulo-3: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);    /* 24 a 32px */
+  --titulo-2: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);   /* 32 a 52px */
+  --titulo-1: clamp(3rem, 1.8rem + 6vw, 7rem);        /* 48 a 112px */
+  --marca: clamp(4.5rem, 2rem + 14vw, 12rem);         /* 72 a 192px: o ERK. */
+
+  --altura-linha-texto: 1.65;
+  --altura-linha-titulo: 1.05;
+
+  /* ------------------------------------------------------------------------
+     Espaçamentos
+     Uma escala fixa dá ritmo ao layout: nada de valores soltos.
+     ------------------------------------------------------------------------ */
+  --espaco-1: 0.25rem;   /*   4px */
+  --espaco-2: 0.5rem;    /*   8px */
+  --espaco-3: 0.75rem;   /*  12px */
+  --espaco-4: 1rem;      /*  16px */
+  --espaco-5: 1.5rem;    /*  24px */
+  --espaco-6: 2rem;      /*  32px */
+  --espaco-7: 3rem;      /*  48px */
+  --espaco-8: 4rem;      /*  64px */
+  --espaco-9: 6rem;      /*  96px */
+  --espaco-10: 8rem;     /* 128px */
+
+  /* ------------------------------------------------------------------------
+     Layout
+     ------------------------------------------------------------------------ */
+  --largura-maxima: 72rem;                              /* 1152px */
+  --largura-leitura: 38rem;                             /* ~65 caracteres por linha */
+  --margem-lateral: clamp(1rem, 0.5rem + 2.5vw, 2.5rem); /* 16 a 40px */
+
+  /* ------------------------------------------------------------------------
+     Movimento
+     ------------------------------------------------------------------------ */
+  --duracao-rapida: 150ms;
+  --duracao-media: 300ms;
+  --curva-suave: cubic-bezier(0.2, 0, 0, 1);
+}

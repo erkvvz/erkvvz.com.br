@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Fontes
+   As fontes ficam hospedadas no próprio site (pasta /assets/fontes/).
+   Todas têm licença aberta (SIL Open Font License).
+
+   font-display: swap → enquanto a fonte carrega, o texto aparece numa
+   fonte do sistema. Assim ninguém fica olhando para uma tela sem texto.
+   ========================================================================== */
+
+/* Instrument Serif: títulos e identidade editorial */
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fontes/instrument-serif-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fontes/instrument-serif-italico.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Geist: textos e interface.
+   É uma fonte "variável": um único arquivo contém todos os pesos (100 a 900). */
+@font-face {
+  font-family: "Geist";
+  src: url("/assets/fontes/geist-variavel.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Geist Mono: informações técnicas e pequenos detalhes */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fontes/geist-mono-variavel.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
