@@ -90,7 +90,7 @@ Fazem parte da minha trilha de estudos, mas este site não precisa de servidor n
 
 - O domínio `erkvvz.com.br` está registrado no Registro.br, com o DNS gerenciado pela Cloudflare.
 - A hospedagem planejada é a **Cloudflare Pages**, que é gratuita, tem HTTPS automático e publica o site sozinha a cada envio para o GitHub.
-- Ainda não existe e-mail no domínio. Um endereço como `contato@erkvvz.com.br` pode vir depois.
+- O endereço `contato@erkvvz.com.br` recebe e-mails pelo roteamento de e-mail da Cloudflare, que é gratuito e encaminha as mensagens para a minha caixa de entrada.
 
 ## 5. Direção visual
 
@@ -173,4 +173,3 @@ Coloco o site no ar cedo, na entrega 3, para aprender deploy, DNS e HTTPS enquan
 - Como organizar a seção de fotografia.
 - Como apresentar os beats que já tenho.
 - A playlist do Spotify que vai representar o site.
-- O e-mail de contato.

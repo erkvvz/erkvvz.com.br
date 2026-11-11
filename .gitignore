@@ -8,6 +8,7 @@ desktop.ini
 # Arquivos privados ou de trabalho
 contexto.txt
 privado/
+.claude/
 *.zip
 .env
 
