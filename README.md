@@ -19,3 +19,5 @@ Sem frameworks por enquanto. Cada tecnologia nova só entra quando houver um mot
 ## Documentação
 
 - [`docs/01-proposta-inicial.md`](docs/01-proposta-inicial.md): visão, arquitetura e roadmap do projeto.
+- [`docs/entregas.md`](docs/entregas.md): o que fiz em cada etapa, os problemas que apareceram e como resolvi.
+- [`docs/decisoes/`](docs/decisoes/): as decisões técnicas, uma por arquivo, com os motivos de cada escolha.

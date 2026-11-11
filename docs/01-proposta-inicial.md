@@ -139,6 +139,7 @@ erkvvz.com.br/
 │   ├── robots.txt
 │   └── sitemap.xml
 ├── docs/
+│   ├── entregas.md   O que fiz em cada etapa
 │   └── decisoes/     Uma nota curta para cada decisão técnica
 ├── wrangler.jsonc    Configuração do site na Cloudflare
 ├── README.md
