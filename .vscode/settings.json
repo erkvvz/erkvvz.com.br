@@ -1,0 +1,5 @@
+{
+  // O Live Preview serve a pasta public/ como raiz, igual ao site no ar.
+  // Assim links como /sobre/ funcionam também no computador.
+  "livePreview.serverRoot": "/public"
+}

@@ -89,7 +89,7 @@ Fazem parte da minha trilha de estudos, mas este site não precisa de servidor n
 ### Hospedagem e domínio
 
 - O domínio `erkvvz.com.br` está registrado no Registro.br, com o DNS gerenciado pela Cloudflare.
-- A hospedagem planejada é a **Cloudflare Pages**, que é gratuita, tem HTTPS automático e publica o site sozinha a cada envio para o GitHub.
+- A hospedagem é a **Cloudflare Workers**, com arquivos estáticos. É gratuita para este uso, tem HTTPS automático e publica o site sozinha a cada envio para o GitHub. Eu tinha planejado usar a Cloudflare Pages, mas a própria Cloudflare passou a recomendar o Workers para projetos novos.
 - O endereço `contato@erkvvz.com.br` recebe e-mails pelo roteamento de e-mail da Cloudflare, que é gratuito e encaminha as mensagens para a minha caixa de entrada.
 
 ## 5. Direção visual
@@ -125,23 +125,27 @@ Limitações que estou considerando:
 
 ```
 erkvvz.com.br/
-├── index.html
-├── sobre/index.html
-├── projetos/index.html
-├── contato/index.html
-├── 404.html
-├── assets/
-│   ├── css/
-│   ├── js/
-│   ├── fonts/
-│   └── img/
+├── public/           Tudo que vai para o ar, e só isso
+│   ├── index.html
+│   ├── sobre/index.html
+│   ├── projetos/index.html
+│   ├── contato/index.html
+│   ├── 404.html
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── js/
+│   │   ├── fonts/
+│   │   └── img/
+│   ├── robots.txt
+│   └── sitemap.xml
 ├── docs/
 │   └── decisoes/     Uma nota curta para cada decisão técnica
-├── robots.txt
-├── sitemap.xml
+├── wrangler.jsonc    Configuração do site na Cloudflare
 ├── README.md
 └── .gitignore
 ```
+
+A regra é simples: o que está em `public/` é publicado, o resto não. Assim a documentação e os arquivos de configuração nunca vão parar no site por engano.
 
 Arquivos brutos, como fotos originais e projetos de beats, ficam fora do repositório. Só entra o que vai para o site, já otimizado.
 
@@ -152,7 +156,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | # | Entrega | Status |
 |---|---|---|
 | 1 | Ambiente: VS Code, Git e repositório no GitHub | Concluída |
-| 2 | Estrutura de pastas e página inicial em HTML semântico, sem estilo | |
+| 2 | Estrutura de pastas e página inicial em HTML semântico, sem estilo | Concluída |
 | 3 | Site no ar em `erkvvz.com.br` com HTTPS | |
 | 4 | Sistema de design: cores, fontes e espaçamentos | |
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | |

@@ -1,0 +1,15 @@
+// Configuração do site na Cloudflare (Workers com arquivos estáticos).
+// Documentação: https://developers.cloudflare.com/workers/static-assets/
+{
+  // Nome do projeto na Cloudflare. Precisa ser igual ao nome criado no painel.
+  "name": "erkvvz",
+
+  // Versão do comportamento da plataforma que o projeto usa.
+  // Fixar uma data evita que atualizações da Cloudflare mudem o site sem aviso.
+  "compatibility_date": "2026-11-01",
+
+  // Só o conteúdo desta pasta vai para o ar.
+  "assets": {
+    "directory": "./public"
+  }
+}
