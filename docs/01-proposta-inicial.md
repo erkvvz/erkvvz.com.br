@@ -157,7 +157,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 |---|---|---|
 | 1 | Ambiente: VS Code, Git e repositório no GitHub | Concluída |
 | 2 | Estrutura de pastas e página inicial em HTML semântico, sem estilo | Concluída |
-| 3 | Site no ar em `erkvvz.com.br` com HTTPS | |
+| 3 | Site no ar em `erkvvz.com.br` com HTTPS | Concluída |
 | 4 | Sistema de design: cores, fontes e espaçamentos | |
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | |
 | 6 | Página inicial, primeira versão | |
