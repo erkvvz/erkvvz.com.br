@@ -1,0 +1,15 @@
+# Arquivos que o Git deve ignorar (nunca vão para o GitHub)
+
+# Arquivos automáticos do sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Arquivos privados ou de trabalho
+contexto.txt
+privado/
+*.zip
+.env
+
+# Dependências instaladas (para quando houver npm)
+node_modules/
