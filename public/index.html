@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ERK. | Erick Souza</title>
-  <meta name="description" content="Site pessoal de Erick Souza: código, música, fotografia e registros.">
+  <meta name="description" content="ERK., o arquivo pessoal de Erick Souza: o que penso, o que sinto e o que crio, em código, música, imagens e palavras.">
   <link rel="preload" href="/assets/fontes/geist-variavel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fontes/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fontes/instrument-serif-italico.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/fontes.css">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/inicio.css">
 </head>
 <body>
 
@@ -30,27 +32,34 @@
     </nav>
   </header>
 
-  <main id="conteudo">
+  <main id="conteudo" class="inicio">
 
-    <section aria-labelledby="titulo-apresentacao">
-      <h1 id="titulo-apresentacao">ERK.</h1>
-      <p>Erick Souza</p>
-      <!-- Frase de apresentação: a definir -->
-      <p>Código, música, fotografia e registros.</p>
+    <section class="apresentacao" aria-labelledby="titulo-apresentacao">
+      <p class="apresentacao__rotulo">Arquivo pessoal</p>
+
+      <h1 class="apresentacao__marca" id="titulo-apresentacao">ERK<span class="ponto">.</span></h1>
+
+      <p class="apresentacao__frase">Um arquivo do que penso, o que sinto e o que crio.</p>
+
+      <div class="apresentacao__texto">
+        <p class="apresentacao__autor">
+          Erick Souza
+          <span class="apresentacao__papeis">Compositor&nbsp;· Programador&nbsp;· Beatmaker</span>
+        </p>
+
+        <p>Um arquivo pessoal de ideias, criações e experiências. Um lugar para reunir tudo aquilo que me representa.</p>
+
+        <p>Aqui ficam meus projetos, códigos e beats, mas também pensamentos em forma de frases e letras de música, objetos pessoais, audiovisuais e projetos que ainda vão existir.</p>
+
+        <p>Algumas coisas estão prontas. Outras ainda são possibilidades. Todas fazem parte de quem sou e de quem estou me tornando.</p>
+
+        <a class="link-destaque" href="/arquivo/">Explorar o arquivo <span aria-hidden="true">↗</span></a>
+      </div>
     </section>
 
-    <section aria-labelledby="titulo-agora">
-      <h2 id="titulo-agora">Agora</h2>
-      <p>Estudante de Análise e Desenvolvimento de Sistemas. Construindo este site do zero enquanto aprendo.</p>
-    </section>
-
-    <section aria-labelledby="titulo-areas">
-      <h2 id="titulo-areas">Neste site</h2>
-      <ul>
-        <li><a href="/sobre/">Sobre</a>: quem sou e o que estou estudando.</li>
-        <li><a href="/projetos/">Projetos</a>: o que estou construindo.</li>
-        <li><a href="/contato/">Contato</a>: onde me encontrar.</li>
-      </ul>
+    <section class="agora" aria-labelledby="titulo-agora">
+      <h2 class="agora__rotulo" id="titulo-agora">Agora</h2>
+      <p>Estudando Análise e Desenvolvimento de Sistemas. Construindo este site do zero, enquanto aprendo.</p>
     </section>
 
   </main>

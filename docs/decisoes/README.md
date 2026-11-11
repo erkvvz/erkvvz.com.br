@@ -16,3 +16,4 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0008](0008-sistema-de-design.md) | Sistema de design: cores, fontes e tokens | Aceita |
 | [0009](0009-fontes-no-proprio-site.md) | Fontes hospedadas no próprio site | Aceita |
 | [0010](0010-menu-sempre-visivel.md) | Menu sempre visível, sem botão de menu | Aceita |
+| [0011](0011-pagina-arquivo.md) | Página Arquivo: um índice de tudo, inclusive do que ainda não existe | Aceita |

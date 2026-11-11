@@ -38,6 +38,7 @@ Uma regra que vale para tudo: **nada inventado.** Prefiro poucos projetos bem do
 
 ```
 /                  Início
+/arquivo/          Índice de tudo o que está no site, e do que ainda vai estar
 /sobre/            Quem sou, minha trajetória e o que estou estudando
 /projetos/         Meus projetos
 /projetos/<nome>/  Página de cada projeto
@@ -161,7 +162,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | 3 | Site no ar em `erkvvz.com.br` com HTTPS | Concluída |
 | 4 | Sistema de design: cores, fontes e espaçamentos | Concluída |
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | Concluída |
-| 6 | Página inicial, primeira versão | |
+| 6 | Página inicial, primeira versão | Concluída |
 | 7 | Sobre, com meus conhecimentos técnicos | |
 | 8 | Projetos, com este site como projeto 001 | |
 | 9 | Contato, SEO, prévia de compartilhamento, favicon e página 404 | |
@@ -173,7 +174,6 @@ Coloco o site no ar cedo, na entrega 3, para aprender deploy, DNS e HTTPS enquan
 
 ## 9. O que ainda estou decidindo
 
-- A frase de apresentação da página inicial.
 - Como organizar a seção de fotografia.
 - Como apresentar os beats que já tenho.
 - A playlist do Spotify que vai representar o site.

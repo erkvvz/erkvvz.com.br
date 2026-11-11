@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Página inicial
+   Só é carregado no index.html.
+   ========================================================================== */
+
+/* ---- Apresentação --------------------------------------------------------
+   Celular: tudo em uma coluna.
+   Computador: o ERK. ocupa a largura toda; embaixo, a frase à esquerda e o
+   texto à direita, em colunas de larguras diferentes (layout assimétrico). */
+
+.apresentacao {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-6);
+  padding-block: var(--espaco-6) var(--espaco-9);
+}
+
+@media (min-width: 64rem) {               /* a partir de 1024px */
+  .apresentacao {
+    grid-template-columns: 7fr 5fr;
+    column-gap: var(--espaco-8);
+    row-gap: var(--espaco-7);
+  }
+
+  .apresentacao__rotulo,
+  .apresentacao__marca {
+    grid-column: 1 / -1;                   /* largura toda */
+  }
+}
+
+.apresentacao__rotulo {
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.apresentacao__marca {
+  margin-block: calc(var(--espaco-5) * -1) 0; /* aproxima o ERK. do rótulo */
+  font-size: var(--marca);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+}
+
+.apresentacao__frase {
+  max-width: 16ch;                         /* frase curta, em poucas linhas */
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-2);
+  font-style: italic;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.apresentacao__texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  color: var(--cor-texto-suave);
+}
+
+.apresentacao__autor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  margin-bottom: var(--espaco-3);
+  color: var(--cor-texto);
+  font-size: var(--texto-grande);
+}
+
+.apresentacao__papeis {
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.apresentacao__texto .link-destaque {
+  margin-top: var(--espaco-4);
+  align-self: flex-start;                  /* o link não estica na largura toda */
+}
+
+/* ---- Agora ---------------------------------------------------------------
+   Uma faixa discreta com o que estou fazendo no momento. */
+
+.agora {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-2);
+  padding-block: var(--espaco-5);
+  border-top: 1px solid var(--cor-borda);
+}
+
+@media (min-width: 48rem) {
+  .agora {
+    grid-template-columns: 10rem 1fr;
+    align-items: baseline;
+  }
+}
+
+.agora__rotulo {
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: var(--altura-linha-texto);
+  text-transform: uppercase;
+}
+
+.agora p {
+  color: var(--cor-texto-suave);
+}

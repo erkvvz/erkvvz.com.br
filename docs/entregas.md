@@ -99,3 +99,23 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 - Na tela de 320 pixels, a mais estreita que testei, o menu não cabe ao lado da assinatura e desce para a linha de baixo. Isso foi planejado com `flex-wrap`.
 
 **Como confirmei que funcionou:** testei em 1280, 375 e 320 pixels de largura, sem nada vazando para os lados. As áreas de clique do menu e das redes têm pelo menos 36 pixels de altura. Navegando com Tab, o foco passa pelo atalho, pela assinatura e pelo menu, com o contorno vinho visível.
+
+---
+
+## Entrega 6: página inicial
+
+**Objetivo:** dar à página inicial uma primeira impressão marcante, com a minha apresentação e um caminho para o resto do site.
+
+**O que fiz**
+- Escrevi a apresentação com as minhas palavras: "Um arquivo do que penso, o que sinto e o que crio."
+- Montei a página em duas partes: o ERK. em tamanho grande, com o ponto vinho, e embaixo a frase em itálico à esquerda e o texto à direita, numa composição assimétrica. No celular, tudo vira uma coluna.
+- Abaixo do meu nome, os papéis: compositor, programador e beatmaker.
+- Criei a chamada "Explorar o arquivo", em vinho, que leva à nova página Arquivo.
+- Mantive uma faixa "Agora", com o que estou fazendo no momento.
+- Criei a página `/arquivo/`, um índice numerado de tudo o que está no site e do que ainda vai estar ([decisão 0011](decisoes/0011-pagina-arquivo.md)).
+
+**Problemas e soluções**
+- No celular, a linha dos papéis quebrava deixando um "·" sozinho no começo da linha de baixo. Usei um espaço que não quebra (`&nbsp;`) antes de cada ponto, para o separador ficar sempre junto da palavra anterior.
+- A seta "↗" da chamada seria lida pelos leitores de tela como "seta para nordeste". Marquei a seta como decorativa (`aria-hidden="true"`).
+
+**Como confirmei que funcionou:** testei a página inicial e o Arquivo em 1280 e 375 pixels, sem nada vazando para os lados. Cada página tem um único título principal (`h1`), e a chamada leva para `/arquivo/`.

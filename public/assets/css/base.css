@@ -102,6 +102,36 @@ a:hover {
   text-decoration-color: currentColor;
 }
 
+/* ---- Link de destaque ----------------------------------------------------
+   Chamada principal de uma página, em vinho. A seta anda um pouco no hover. */
+
+.link-destaque {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--espaco-2);
+  padding-block: var(--espaco-2);
+  color: var(--cor-vinho-vivo);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration-color: transparent;
+}
+
+.link-destaque span {
+  display: inline-block;
+  transition: transform var(--duracao-media) var(--curva-suave);
+}
+
+.link-destaque:hover {
+  color: var(--cor-vinho-vivo);
+  text-decoration-color: currentColor;
+}
+
+.link-destaque:hover span {
+  transform: translate(2px, -2px);
+}
+
 /* ---- Foco do teclado -----------------------------------------------------
    :focus-visible aparece só para quem navega pelo teclado, não no clique. */
 

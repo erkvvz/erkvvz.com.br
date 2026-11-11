@@ -1,0 +1,105 @@
+/* ==========================================================================
+   Página Arquivo
+   O índice de tudo que existe (e do que ainda vai existir) no site.
+   ========================================================================== */
+
+.arquivo__topo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding-bottom: var(--espaco-8);
+}
+
+.arquivo__topo p {
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  font-style: italic;
+  line-height: 1.2;
+}
+
+/* ---- Índice --------------------------------------------------------------
+   Celular: número e estado em cima, nome e descrição embaixo.
+   Computador: tudo em uma linha, como o índice de um catálogo. */
+
+.indice {
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.indice__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "numero estado"
+    "nome   nome"
+    "desc   desc";
+  gap: var(--espaco-1) var(--espaco-4);
+  padding-block: var(--espaco-5);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+@media (min-width: 48rem) {
+  .indice__item {
+    grid-template-columns: 4rem 14rem 1fr auto;
+    grid-template-areas: "numero nome desc estado";
+    align-items: baseline;
+  }
+}
+
+.indice__numero {
+  grid-area: numero;
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+}
+
+.indice__nome {
+  grid-area: nome;
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  line-height: 1.2;
+}
+
+/* Itens com link: sem sublinhado, com o ponto vinho aparecendo no hover */
+a.indice__nome {
+  text-decoration: none;
+}
+
+a.indice__nome::after {
+  content: ".";
+  content: "." / "";
+  color: var(--cor-vinho-vivo);
+  opacity: 0;
+  transition: opacity var(--duracao-rapida) var(--curva-suave);
+}
+
+a.indice__nome:hover::after,
+a.indice__nome:focus-visible::after {
+  opacity: 1;
+}
+
+/* Itens sem link (ainda não existem) ficam apagados */
+span.indice__nome {
+  color: var(--cor-texto-fraco);
+}
+
+.indice__descricao {
+  grid-area: desc;
+  color: var(--cor-texto-suave);
+}
+
+.indice__estado {
+  grid-area: estado;
+  justify-self: end;
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.indice__estado--disponivel {
+  color: var(--cor-vinho-vivo);
+}
