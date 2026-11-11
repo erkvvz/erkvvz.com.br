@@ -100,7 +100,7 @@ Minimalista, editorial e escura, como uma publicação digital ou um estúdio cr
 - **Escuro, mas não preto puro.** Fundo grafite quase preto, texto em branco quebrado e uma escala de cinzas.
 - **Tipografia forte.** Quando não houver imagem, a tipografia é a imagem.
 - **Três fontes, cada uma com um papel:** Instrument Serif para títulos e para o ERK., Geist para leitura e interface, e Geist Mono para detalhes como datas, tecnologias e BPM.
-- **Preto, branco e vinho.** O vinho é o único destaque e aparece pontualmente: em detalhes, interações e elementos gráficos.
+- **Preto, branco e roxo.** Um roxo berinjela é o único destaque e aparece só em detalhes: pontos, sublinhados e setas.
 - **O ponto como assinatura.** O `.` de ERK. pode marcar a seção ativa, indicar carregamento e pulsar quando uma música estiver tocando.
 - **Catálogo numerado.** Projetos, beats e textos recebem números, como um selo de discos: `001`, `B-001`, `J-001`.
 - **Cada área tem o seu ritmo,** dentro do mesmo sistema: projetos em grade, música como tracklist, fotos em destaque e textos numa coluna de leitura confortável.

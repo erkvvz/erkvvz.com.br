@@ -119,3 +119,17 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 - A seta "↗" da chamada seria lida pelos leitores de tela como "seta para nordeste". Marquei a seta como decorativa (`aria-hidden="true"`).
 
 **Como confirmei que funcionou:** testei a página inicial e o Arquivo em 1280 e 375 pixels, sem nada vazando para os lados. Cada página tem um único título principal (`h1`), e a chamada leva para `/arquivo/`.
+
+---
+
+## Ajustes depois da entrega 6
+
+**O que mudei, depois de ver o site no ar**
+- **Frase da página inicial:** em três linhas, ela parecia uma coluna estreita. Aumentei a largura dela, e no computador agora são duas linhas, quebrando na vírgula.
+- **Cor de destaque:** troquei o vinho por um roxo berinjela, usado só em detalhes: pontos, sublinhados, a seta da chamada e a bolinha do "Disponível" ([decisão 0012](decisoes/0012-destaque-roxo.md)).
+- Antes de escolher, comparei três vermelhos mais escuros e quatro roxos em páginas de amostra, aplicados nos mesmos elementos do site.
+
+**Problemas e soluções**
+- Nem o vermelho escuro nem o roxo escuro podem ser cor de texto sobre o preto: ficariam ilegíveis. A solução foi manter todo o texto em branco ou cinza e usar a cor só como detalhe. O contorno de foco do teclado passou a ser branco.
+- Em tamanhos pequenos, o roxo berinjela quase sumia, como no ponto do ERK. no cabeçalho. Criei um segundo tom, mais claro, para os detalhes pequenos, e mantive o berinjela no ERK. grande da página inicial.
+- Testei deixar os rótulos em roxo, mas por enquanto mantive em cinza.

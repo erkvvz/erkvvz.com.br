@@ -97,35 +97,40 @@ a {
               text-decoration-color var(--duracao-rapida) var(--curva-suave);
 }
 
+/* No hover, o texto fica branco e o sublinhado vira roxo e mais grosso */
 a:hover {
-  color: var(--cor-vinho-vivo);
-  text-decoration-color: currentColor;
+  color: var(--cor-texto);
+  text-decoration-color: var(--cor-destaque-claro);
+  text-decoration-thickness: 2px;
 }
 
 /* ---- Link de destaque ----------------------------------------------------
-   Chamada principal de uma página, em vinho. A seta anda um pouco no hover. */
+   Chamada principal de uma página: texto branco, sublinhado e seta em roxo.
+   A seta anda um pouco no hover. */
 
 .link-destaque {
   display: inline-flex;
   align-items: baseline;
   gap: var(--espaco-2);
   padding-block: var(--espaco-2);
-  color: var(--cor-vinho-vivo);
+  color: var(--cor-texto);
   font-family: var(--fonte-mono);
   font-size: var(--texto-pequeno);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  text-decoration-color: transparent;
+  text-decoration-color: var(--cor-destaque-claro);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.45em;
 }
 
 .link-destaque span {
   display: inline-block;
+  color: var(--cor-destaque-claro);
   transition: transform var(--duracao-media) var(--curva-suave);
 }
 
 .link-destaque:hover {
-  color: var(--cor-vinho-vivo);
-  text-decoration-color: currentColor;
+  color: var(--cor-texto);
 }
 
 .link-destaque:hover span {
@@ -135,16 +140,18 @@ a:hover {
 /* ---- Foco do teclado -----------------------------------------------------
    :focus-visible aparece só para quem navega pelo teclado, não no clique. */
 
+/* Branco, para ser visto por qualquer pessoa sobre o fundo preto */
 :focus-visible {
-  outline: 2px solid var(--cor-vinho-vivo);
+  outline: 2px solid var(--cor-texto);
   outline-offset: 3px;
 }
 
-/* ---- Seleção de texto ---------------------------------------------------- */
+/* ---- Seleção de texto ----------------------------------------------------
+   Cores invertidas: fundo branco e texto preto. Sem cor de destaque. */
 
 ::selection {
-  background-color: var(--cor-vinho);
-  color: var(--cor-texto);
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
 }
 
 /* ---- Atalho "Pular para o conteúdo" --------------------------------------

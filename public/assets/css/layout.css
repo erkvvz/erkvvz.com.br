@@ -49,9 +49,15 @@ main {
   text-decoration: none;
 }
 
-/* O ponto do ERK. é a assinatura do site: sempre em vinho */
+/* O ponto do ERK. é a assinatura do site: sempre na cor de destaque.
+   Nos tamanhos pequenos (cabeçalho e rodapé), usa o roxo claro para não sumir. */
 .ponto {
-  color: var(--cor-vinho-vivo);
+  color: var(--cor-destaque);
+}
+
+.cabecalho__marca .ponto,
+.rodape__assinatura .ponto {
+  color: var(--cor-destaque-claro);
 }
 
 .cabecalho__marca:hover {
@@ -94,7 +100,7 @@ main {
 .menu a[aria-current="page"]::after {
   content: ".";
   content: "." / "";
-  color: var(--cor-vinho-vivo);
+  color: var(--cor-destaque-claro);
 }
 
 /* ---- Rodapé -------------------------------------------------------------- */

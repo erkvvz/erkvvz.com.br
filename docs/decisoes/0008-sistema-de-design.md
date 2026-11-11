@@ -1,7 +1,7 @@
 # 0008. Sistema de design: cores, fontes e tokens
 
 - **Data:** novembro de 2026
-- **Status:** Aceita
+- **Status:** Aceita. A parte das cores de destaque (vinho) foi substituída pela [decisão 0012](0012-destaque-roxo.md).
 
 ## Contexto
 

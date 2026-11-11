@@ -44,7 +44,7 @@
 }
 
 .apresentacao__frase {
-  max-width: 16ch;                         /* frase curta, em poucas linhas */
+  max-width: 24ch;                         /* no computador, a frase fica em duas linhas */
   font-family: var(--fonte-titulo);
   font-size: var(--titulo-2);
   font-style: italic;

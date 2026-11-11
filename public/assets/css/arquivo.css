@@ -62,7 +62,7 @@
   line-height: 1.2;
 }
 
-/* Itens com link: sem sublinhado, com o ponto vinho aparecendo no hover */
+/* Itens com link: sem sublinhado, com o ponto roxo aparecendo no hover */
 a.indice__nome {
   text-decoration: none;
 }
@@ -70,7 +70,7 @@ a.indice__nome {
 a.indice__nome::after {
   content: ".";
   content: "." / "";
-  color: var(--cor-vinho-vivo);
+  color: var(--cor-destaque-claro);
   opacity: 0;
   transition: opacity var(--duracao-rapida) var(--curva-suave);
 }
@@ -100,6 +100,18 @@ span.indice__nome {
   text-transform: uppercase;
 }
 
+/* Disponível: texto branco com uma bolinha roxa antes */
 .indice__estado--disponivel {
-  color: var(--cor-vinho-vivo);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  color: var(--cor-texto);
+}
+
+.indice__estado--disponivel::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background-color: var(--cor-destaque-claro);
 }
