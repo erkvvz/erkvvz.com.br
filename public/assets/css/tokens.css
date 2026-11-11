@@ -18,14 +18,13 @@
   --cor-texto-suave: #A8A8A4;    /* textos secundários (8.3) */
   --cor-texto-fraco: #83837D;    /* metadados, datas, legendas (5.2) */
 
-  /* Destaque: roxo berinjela, só em detalhes.
-     É escuro demais para texto sobre o preto (1.5), então nunca é cor de texto.
-     Aparece em pontos, sublinhados, setas e marcadores. */
-  --cor-destaque: #4A1466;
+  /* Destaque: vinho profundo, só em detalhes grandes (o ponto do ERK. na
+     página inicial). É escuro demais para texto sobre o preto (1.9). */
+  --cor-destaque: #702638;
 
-  /* Versão clara do roxo, para detalhes pequenos (pontos, setas, sublinhados),
-     que somem com o berinjela. Legível sobre o preto (4.6). */
-  --cor-destaque-claro: #9B5FD0;
+  /* Versão clara do mesmo vinho, para detalhes pequenos (pontos, setas,
+     sublinhados), que sumiriam com o tom escuro. Legível sobre o preto (4.6). */
+  --cor-destaque-claro: #C05A72;
 
   /* ------------------------------------------------------------------------
      Fontes

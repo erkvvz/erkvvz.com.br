@@ -17,4 +17,5 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0009](0009-fontes-no-proprio-site.md) | Fontes hospedadas no próprio site | Aceita |
 | [0010](0010-menu-sempre-visivel.md) | Menu sempre visível, sem botão de menu | Aceita |
 | [0011](0011-pagina-arquivo.md) | Página Arquivo: um índice de tudo, inclusive do que ainda não existe | Aceita |
-| [0012](0012-destaque-roxo.md) | Cor de destaque: roxo berinjela, só nos detalhes | Aceita |
+| [0012](0012-destaque-roxo.md) | Cor de destaque: roxo berinjela, só nos detalhes | Regras valem; cores substituídas pela 0013 |
+| [0013](0013-destaque-vinho-profundo.md) | Cor de destaque: vinho profundo | Aceita |

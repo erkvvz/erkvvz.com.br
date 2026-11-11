@@ -50,7 +50,7 @@ main {
 }
 
 /* O ponto do ERK. é a assinatura do site: sempre na cor de destaque.
-   Nos tamanhos pequenos (cabeçalho e rodapé), usa o roxo claro para não sumir. */
+   Nos tamanhos pequenos (cabeçalho e rodapé), usa o tom claro do destaque para não sumir. */
 .ponto {
   color: var(--cor-destaque);
 }

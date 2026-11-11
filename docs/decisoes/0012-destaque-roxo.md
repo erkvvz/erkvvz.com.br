@@ -1,7 +1,7 @@
 # 0012. Cor de destaque: roxo berinjela, só nos detalhes
 
 - **Data:** novembro de 2026
-- **Status:** Aceita. Substitui a parte de cores de destaque da [decisão 0008](0008-sistema-de-design.md).
+- **Status:** As regras de uso continuam valendo. As cores foram substituídas pela [decisão 0013](0013-destaque-vinho-profundo.md). Esta nota substituiu a parte de cores de destaque da [decisão 0008](0008-sistema-de-design.md).
 
 ## Contexto
 

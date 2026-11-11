@@ -62,7 +62,7 @@
   line-height: 1.2;
 }
 
-/* Itens com link: sem sublinhado, com o ponto roxo aparecendo no hover */
+/* Itens com link: sem sublinhado, com o ponto de destaque aparecendo no hover */
 a.indice__nome {
   text-decoration: none;
 }

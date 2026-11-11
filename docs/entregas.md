@@ -133,3 +133,9 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 - Nem o vermelho escuro nem o roxo escuro podem ser cor de texto sobre o preto: ficariam ilegíveis. A solução foi manter todo o texto em branco ou cinza e usar a cor só como detalhe. O contorno de foco do teclado passou a ser branco.
 - Em tamanhos pequenos, o roxo berinjela quase sumia, como no ponto do ERK. no cabeçalho. Criei um segundo tom, mais claro, para os detalhes pequenos, e mantive o berinjela no ERK. grande da página inicial.
 - Testei deixar os rótulos em roxo, mas por enquanto mantive em cinza.
+
+---
+
+## Troca da cor de destaque
+
+Troquei o roxo por um **vinho profundo**, `#702638`, com um tom mais claro do mesmo vinho, `#C05A72`, para os detalhes pequenos ([decisão 0013](decisoes/0013-destaque-vinho-profundo.md)). As regras de uso continuaram as mesmas. Como as cores ficam em dois tokens, a troca foi mudar duas linhas do `tokens.css`.

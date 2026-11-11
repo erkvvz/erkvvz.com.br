@@ -97,7 +97,7 @@ a {
               text-decoration-color var(--duracao-rapida) var(--curva-suave);
 }
 
-/* No hover, o texto fica branco e o sublinhado vira roxo e mais grosso */
+/* No hover, o texto fica branco e o sublinhado ganha a cor de destaque e fica mais grosso */
 a:hover {
   color: var(--cor-texto);
   text-decoration-color: var(--cor-destaque-claro);
@@ -105,7 +105,7 @@ a:hover {
 }
 
 /* ---- Link de destaque ----------------------------------------------------
-   Chamada principal de uma página: texto branco, sublinhado e seta em roxo.
+   Chamada principal de uma página: texto branco, sublinhado e seta na cor de destaque.
    A seta anda um pouco no hover. */
 
 .link-destaque {
