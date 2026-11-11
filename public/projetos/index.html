@@ -10,18 +10,19 @@
   <link rel="stylesheet" href="/assets/css/fontes.css">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
 </head>
 <body>
 
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
 
-  <header>
-    <a href="/">ERK.</a>
+  <header class="cabecalho">
+    <a class="cabecalho__marca" href="/">ERK<span class="ponto">.</span></a>
 
     <nav aria-label="Principal">
-      <ul>
+      <ul class="menu">
         <li><a href="/sobre/">Sobre</a></li>
-        <li><a href="/projetos/">Projetos</a></li>
+        <li><a href="/projetos/" aria-current="page">Projetos</a></li>
         <li><a href="/contato/">Contato</a></li>
       </ul>
     </nav>
@@ -32,8 +33,14 @@
     <p>Esta página está em construção.</p>
   </main>
 
-  <footer>
-    <nav aria-label="Redes sociais">
+  <footer class="rodape">
+    <div>
+      <p class="rodape__rotulo">Contato</p>
+      <a class="rodape__email" href="mailto:contato@erkvvz.com.br">contato@erkvvz.com.br</a>
+    </div>
+
+    <nav class="rodape__redes" aria-labelledby="titulo-redes">
+      <p class="rodape__rotulo" id="titulo-redes">Redes</p>
       <ul>
         <li><a href="https://www.instagram.com/erkvvz/" rel="me">Instagram</a></li>
         <li><a href="https://github.com/erkvvz" rel="me">GitHub</a></li>
@@ -41,7 +48,7 @@
       </ul>
     </nav>
 
-    <p><small>ERK. · Erick Souza</small></p>
+    <p class="rodape__assinatura"><small>ERK<span class="ponto">.</span> · Erick Souza</small></p>
   </footer>
 
 </body>

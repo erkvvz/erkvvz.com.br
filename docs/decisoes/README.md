@@ -15,3 +15,4 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0007](0007-dados-pessoais.md) | Não publicar telefone nem e-mail pessoal | Aceita |
 | [0008](0008-sistema-de-design.md) | Sistema de design: cores, fontes e tokens | Aceita |
 | [0009](0009-fontes-no-proprio-site.md) | Fontes hospedadas no próprio site | Aceita |
+| [0010](0010-menu-sempre-visivel.md) | Menu sempre visível, sem botão de menu | Aceita |

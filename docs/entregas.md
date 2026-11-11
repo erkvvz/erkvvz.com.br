@@ -80,3 +80,22 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 **Como confirmei que funcionou:** no navegador, os três arquivos CSS e as quatro fontes carregaram, o fundo e o texto ficaram com as cores certas, o título usa a Instrument Serif, o atalho de teclado aparece só com Tab e a página não vaza para os lados.
 
 **Uma ideia para depois:** um objeto 3D girando na página inicial, a ser avaliado quando chegar a hora.
+
+---
+
+## Entrega 5: cabeçalho, menu e rodapé
+
+**Objetivo:** criar a estrutura que se repete em todas as páginas, funcionando no celular, no computador e pelo teclado.
+
+**O que fiz**
+- Criei `public/assets/css/layout.css` com a estrutura da página: cabeçalho, conteúdo e rodapé, centralizados e com largura máxima. O rodapé fica sempre embaixo, mesmo em páginas curtas.
+- **Cabeçalho:** a assinatura ERK., com o ponto em vinho, e o menu em letras monoespaçadas.
+- **Menu:** sempre visível, sem botão de menu ([decisão 0010](decisoes/0010-menu-sempre-visivel.md)). A página atual aparece em branco, com o ponto vinho depois do nome, e é anunciada por leitores de tela com `aria-current="page"`.
+- **Rodapé:** o e-mail de contato em destaque, as redes sociais e a assinatura, em duas colunas no computador e uma no celular.
+- Nomeei as classes no padrão "bloco__elemento" (por exemplo, `.cabecalho__marca`), para saber pelo nome a qual parte da página cada regra pertence.
+
+**Problemas e soluções**
+- O ponto depois do item ativo do menu é só decoração. Usei um texto alternativo vazio no CSS (`content: "." / ""`) para que leitores de tela não leiam "ponto".
+- Na tela de 320 pixels, a mais estreita que testei, o menu não cabe ao lado da assinatura e desce para a linha de baixo. Isso foi planejado com `flex-wrap`.
+
+**Como confirmei que funcionou:** testei em 1280, 375 e 320 pixels de largura, sem nada vazando para os lados. As áreas de clique do menu e das redes têm pelo menos 36 pixels de altura. Navegando com Tab, o foco passa pelo atalho, pela assinatura e pelo menu, com o contorno vinho visível.

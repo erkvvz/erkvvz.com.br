@@ -1,0 +1,150 @@
+/* ==========================================================================
+   Layout
+   A estrutura que se repete em todas as páginas: cabeçalho, conteúdo e rodapé.
+
+   Nomes de classe no padrão "bloco__elemento" (inspirado no BEM):
+   .cabecalho é o bloco; .cabecalho__marca é uma parte dele.
+   Assim dá para saber, só pelo nome, a qual parte da página a regra pertence.
+   ========================================================================== */
+
+/* ---- Estrutura da página -------------------------------------------------
+   A página vira uma coluna: cabeçalho, conteúdo e rodapé.
+   O conteúdo (main) ocupa o espaço que sobrar, então o rodapé fica sempre
+   embaixo, mesmo em páginas curtas. */
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecalho,
+main,
+.rodape {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin-inline: auto; /* centraliza quando a tela é mais larga que o máximo */
+}
+
+main {
+  flex: 1;
+  padding-block: var(--espaco-8);
+}
+
+/* ---- Cabeçalho ----------------------------------------------------------- */
+
+.cabecalho {
+  display: flex;
+  flex-wrap: wrap;               /* no celular, o menu desce para a linha de baixo se não couber */
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espaco-3) var(--espaco-6);
+  padding-block: var(--espaco-5);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.cabecalho__marca {
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* O ponto do ERK. é a assinatura do site: sempre em vinho */
+.ponto {
+  color: var(--cor-vinho-vivo);
+}
+
+.cabecalho__marca:hover {
+  color: var(--cor-texto);
+}
+
+/* ---- Menu principal ------------------------------------------------------ */
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-1) var(--espaco-5);
+  padding: 0;
+  list-style: none;
+}
+
+.menu a {
+  display: inline-block;
+  padding-block: var(--espaco-2);  /* área de toque maior, boa para o dedo no celular */
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: var(--cor-texto);
+}
+
+/* Página atual: texto branco e o ponto do ERK. depois do nome.
+   O ponto é decorativo, então o texto alternativo dele é vazio ( / "" ),
+   para leitores de tela não lerem "ponto". A primeira linha é para
+   navegadores que ainda não entendem essa forma. */
+.menu a[aria-current="page"] {
+  color: var(--cor-texto);
+}
+
+.menu a[aria-current="page"]::after {
+  content: ".";
+  content: "." / "";
+  color: var(--cor-vinho-vivo);
+}
+
+/* ---- Rodapé -------------------------------------------------------------- */
+
+.rodape {
+  display: grid;
+  grid-template-columns: 1fr;            /* celular: uma coluna */
+  gap: var(--espaco-6);
+  padding-block: var(--espaco-7) var(--espaco-6);
+  border-top: 1px solid var(--cor-borda);
+}
+
+@media (min-width: 48rem) {             /* a partir de 768px: duas colunas */
+  .rodape {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.rodape__rotulo {
+  margin-bottom: var(--espaco-2);
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-pequeno);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rodape__email {
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  line-height: 1.2;
+  text-decoration: none;
+  overflow-wrap: anywhere; /* o e-mail quebra em vez de vazar em telas estreitas */
+}
+
+.rodape__redes ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-1) var(--espaco-5);
+  padding: 0;
+  list-style: none;
+}
+
+.rodape__redes a {
+  display: inline-block;
+  padding-block: var(--espaco-1);
+}
+
+.rodape__assinatura {
+  grid-column: 1 / -1;  /* ocupa a largura toda, nas duas colunas */
+  color: var(--cor-texto-fraco);
+  font-family: var(--fonte-mono);
+}

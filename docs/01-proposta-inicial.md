@@ -160,7 +160,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | 2 | Estrutura de pastas e página inicial em HTML semântico, sem estilo | Concluída |
 | 3 | Site no ar em `erkvvz.com.br` com HTTPS | Concluída |
 | 4 | Sistema de design: cores, fontes e espaçamentos | Concluída |
-| 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | |
+| 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | Concluída |
 | 6 | Página inicial, primeira versão | |
 | 7 | Sobre, com meus conhecimentos técnicos | |
 | 8 | Projetos, com este site como projeto 001 | |
