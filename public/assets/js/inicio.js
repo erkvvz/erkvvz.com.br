@@ -28,21 +28,31 @@ function podeCarregar3D() {
   return true;
 }
 
-// Guarda o momento da última rolagem, para não começar nada pesado no meio de um gesto
-let ultimaRolagem = -Infinity;
-window.addEventListener('scroll', () => { ultimaRolagem = performance.now(); }, { passive: true });
+/* ---- Esperar um momento de sossego ---------------------------------------
+   Preparar o Three.js (671 KB de código) ocupa o navegador por um instante,
+   e isso não dá para dividir. No celular, esse instante é sentido como uma
+   travadinha. A saída: começar só quando a pessoa ficar um tempo sem mexer
+   na página (lendo a frase, por exemplo). Aí a travada acontece quando nada
+   na tela está se movendo, e ninguém percebe. Até lá, a imagem está no lugar. */
 
-async function esperarRolagemParar() {
-  while (performance.now() - ultimaRolagem < 400) {
-    await new Promise((pronto) => setTimeout(pronto, 150));
+const ehCelular = matchMedia('(max-width: 48rem), (hover: none) and (pointer: coarse)').matches;
+const SOSSEGO_MS = ehCelular ? 2000 : 400;   // no computador a preparação é rápida
+
+// Qualquer toque, rolagem, clique ou tecla conta como "mexendo"
+let ultimoMovimento = performance.now();
+for (const evento of ['scroll', 'touchstart', 'touchmove', 'pointerdown', 'wheel', 'keydown']) {
+  window.addEventListener(evento, () => { ultimoMovimento = performance.now(); }, { passive: true });
+}
+
+async function esperarSossego() {
+  while (performance.now() - ultimoMovimento < SOSSEGO_MS) {
+    await new Promise((pronto) => setTimeout(pronto, 200));
   }
 }
 
 async function carregar() {
   try {
-    // Baixar e preparar o Three.js também ocupa o navegador por um instante:
-    // espera a página ficar parada antes de começar
-    await esperarRolagemParar();
+    await esperarSossego();
     const { iniciarEscultura } = await import('./escultura.js');
     // A montagem é feita em etapas (ver escultura.js); o await espera todas
     await iniciarEscultura(canvas, {

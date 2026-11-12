@@ -14,7 +14,7 @@ A escultura nasceu do meu antigo nome artístico, **No ties** ("sem amarras"): u
 A escultura entra na página inicial em camadas:
 
 1. **Imagem estática primeiro.** A página chega com uma imagem da escultura (`escultura-no-ties.webp`, 45 KB), tirada da própria escultura 3D. É o que todo mundo vê de início.
-2. **O 3D só depois.** Quando a página termina de carregar e o navegador fica livre, um script (`inicio.js`) decide se o 3D deve entrar.
+2. **O 3D só depois.** Quando a página termina de carregar, um script (`inicio.js`) decide se o 3D deve entrar. Ele espera um momento em que a pessoa não esteja mexendo na página: 2 segundos sem toque no celular, 0,4 segundo no computador.
 3. **O 3D não entra** quando a pessoa pediu menos movimento no sistema, quando ativou economia de dados, ou quando o navegador não tem WebGL 2. Nesses casos, a imagem fica.
 4. **A troca é invisível.** O 3D começa exatamente na pose da imagem e aparece por cima dela com um fade. Só depois a imagem sai.
 
