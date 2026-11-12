@@ -12,6 +12,10 @@
    escultura encostar na borda da tela sem criar rolagem para os lados. */
 body {
   container-type: inline-size;
+  /* A escultura passa da borda direita (no celular e no computador).
+     "clip" corta o que sobra sem criar barra de rolagem lateral (diferente de
+     "hidden", não transforma o body numa caixa de rolagem). */
+  overflow-x: clip;
 }
 
 .apresentacao {
@@ -36,17 +40,20 @@ body {
    A imagem é escalada pela altura, como a câmera do 3D: assim a troca
    entre as duas não "pula". */
 
+/* No celular, a escultura fica "de lado": deslocada para a direita, saindo
+   da tela, e mais apagada. Assim a tag, à esquerda, fica sobre a borda dela
+   e não no meio (escolhida no laboratório, opção "De lado"). */
 .escultura {
   position: absolute;
   z-index: 0;
-  top: calc(var(--espaco-8) * -1);
-  right: calc(var(--margem-lateral) * -1);
+  top: calc(var(--espaco-8) * -1 + 4vw);
+  right: calc(var(--margem-lateral) * -1 - 38vw);
   width: calc(100cqw + 2 * var(--margem-lateral)); /* cqw não inclui as margens laterais do body */
   max-width: none;
   height: 70svh;
   overflow: hidden;
   pointer-events: none;                    /* não atrapalha cliques no texto */
-  opacity: 0.7;                            /* no celular, fica por trás do texto, um pouco apagada */
+  opacity: 0.55;                           /* no celular, fica por trás, apagada */
   /* A parte de baixo some aos poucos, para não competir com o texto */
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
   mask-image: linear-gradient(to bottom, #000 55%, transparent);
@@ -132,12 +139,6 @@ body {
     grid-row: 2;
     align-self: start;
     margin-top: var(--espaco-9);
-  }
-
-  /* "clip" corta o que passar da borda direita sem criar barra de rolagem
-     lateral (diferente de "hidden", não transforma o body numa caixa de rolagem). */
-  body {
-    overflow-x: clip;
   }
 
   /* A caixa encosta na borda direita da tela. (100% - 100cqw) / 2 é a

@@ -217,3 +217,13 @@ A fonte dos títulos era o que mais me incomodava. Juntei referências do que eu
 **Duas correções que entram junto:** a escultura, que sobe até o cabeçalho, era pintada por cima do menu (Sobre, Projetos, Contato); agora o cabeçalho fica numa camada acima dela. E, no computador, a página rolava 40 px para o lado por causa da sombra atrás do texto; agora o que passa da borda é cortado com `overflow-x: clip`.
 
 **Como confirmei:** no computador e no simulador de celular, sem erros no console e sem rolagem para os lados; as fontes antigas não são mais carregadas; a escultura aparece, acorda ao mexer o mouse ou tocar na tela e, no celular, usa o material leve. Conferi também as páginas Sobre e Arquivo.
+
+---
+
+## Ajuste depois da entrega 6.2: a escultura de lado no celular
+
+No celular, a tag ficava bem em cima do centro da escultura, e as duas peças disputavam o mesmo lugar. Comparei quatro posições no laboratório (atrás da tag, entre a tag e o texto, atrás do texto e de lado) e escolhi **de lado**: a escultura continua atrás, mas deslocada para a direita, saindo da tela e mais apagada. A tag fica sobre a borda dela, e não no meio. No computador, nada mudou.
+
+Também deixei a tag do rodapé clicável: ela leva de volta ao início, como a do topo.
+
+**Como confirmei:** no simulador de celular, a escultura aparece à direita, sem rolagem para os lados; o link do rodapé aponta para o início e pode ser clicado. No computador, a página continua igual e sem rolagem lateral.

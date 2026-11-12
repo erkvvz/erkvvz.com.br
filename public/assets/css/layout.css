@@ -158,6 +158,17 @@ main {
   font-family: var(--fonte-mono);
 }
 
+/* A tag do rodapé também é um link para o início, como a do topo */
+.rodape__marca {
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.rodape__marca:hover .rodape__tag {
+  opacity: 1;
+}
+
 /* A tag no rodapé: do tamanho da linha, alinhada no meio, um pouco apagada */
 .rodape__tag {
   display: inline-block;
@@ -166,4 +177,5 @@ main {
   margin-block: -0.4em;
   vertical-align: middle;
   opacity: 0.75;
+  transition: opacity var(--duracao-rapida) var(--curva-suave);
 }
