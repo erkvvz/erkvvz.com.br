@@ -22,7 +22,7 @@ const AJUSTES = {
   tamanho: 1.3,
   deformacao: 0.10,
   frequencia: 0.73,
-  velocidade: 1.1,
+  velocidade: 0.6,
   rugosidade: 0.32,
   luzVinho: 6,
 };
@@ -230,9 +230,22 @@ async function esperarRolagemParar() {
  * Liga a escultura a um <canvas>. É assíncrona: monta em etapas e só começa
  * a desenhar quando tudo está pronto.
  * @param {HTMLCanvasElement} canvas
- * @param {{ aoPrimeiroQuadro?: () => void }} opcoes
+ * @param {{ aoPrimeiroQuadro?: () => void, aoMudarEnergia?: (energia: number) => void }} opcoes
  */
-export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
+export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergia } = {}) {
+  /* ---- A escultura acorda quando o visitante está presente ----
+     Ela começa quase parada e apagada ("energia" 0). Quando a pessoa rola,
+     toca, mexe o mouse ou aperta uma tecla, ela acorda (energia 1): ganha
+     brilho e volta a se mexer. Depois de alguns segundos sem interação, ela
+     se acalma de novo. É a presença de quem visita que solta o nó.
+     O brilho é aplicado pela página (aoMudarEnergia); aqui fica o movimento. */
+  const SEGUNDOS_ACORDADA = 6;
+  let ultimaInteracao = -Infinity;
+  let energia = 0;
+  for (const ev of ['scroll', 'pointermove', 'touchstart', 'wheel', 'keydown']) {
+    window.addEventListener(ev, () => { ultimaInteracao = performance.now(); }, { passive: true });
+  }
+
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !ehCelular, alpha: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -387,6 +400,13 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
 
   // Atualiza o estado (tempo, giro, soltura, mouse) sem desenhar
   function atualizar(dt) {
+    if (!preparando) {
+      const acordada = performance.now() - ultimaInteracao < SEGUNDOS_ACORDADA * 1000;
+      // acorda rápido (~0,8 s) e se acalma devagar (~3 s)
+      energia += ((acordada ? 1 : 0) - energia) * Math.min(dt * (acordada ? 2.5 : 0.7), 1);
+      aoMudarEnergia?.(energia);
+      dt *= 0.04 + 0.96 * energia;   // calma, ela fica quase parada
+    }
     uniforms.uTempo.value += dt * AJUSTES.velocidade;
     giro += dt * 0.12 * AJUSTES.velocidade;
 
@@ -422,6 +442,7 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
       relogio.getDelta();                              // zera o relógio da preparação
       preparando = false;
       primeiro = false;
+      aoMudarEnergia?.(energia);
       aoPrimeiroQuadro?.();
       return;
     }
@@ -429,8 +450,12 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
     renderer.render(cena, camera);
   }
 
+  let contador = 0;
   function loop() {
-    if (!document.hidden && visivelNaTela) desenhar();
+    contador++;
+    const calma = !primeiro && energia < 0.05;
+    if (calma && contador % 4 !== 0) { /* calma: pula o quadro (economiza bateria); o tempo acumula para o próximo */ }
+    else if (!document.hidden && visivelNaTela) desenhar();
     else relogio.getDelta();                           // descarta o tempo parado
     requestAnimationFrame(loop);
   }

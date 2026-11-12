@@ -188,3 +188,15 @@ Gravei a tela do computador e encontrei três problemas:
 3. **O fio solto sumia.** Quando o nó se soltava, o fio ficava quase todo atrás da sombra do texto e cortado pela borda da tela. Subi a escultura, para o centro dela ficar acima da coluna de texto, e diminuí o corte na borda.
 
 **Como confirmei:** comparei o primeiro quadro do 3D com a imagem estática, com o mouse no canto da tela, e a diferença ficou abaixo de 1 numa escala de 0 a 255. Também conferi a escultura fechada e solta na nova posição.
+
+**Velocidade mais calma.** Baixei a velocidade da escultura de 1.1 para 0.6. Ela fica mais perto de uma peça numa galeria do que de uma animação, e qualquer engasgo fica menos perceptível, porque o nó mal sai do lugar. O nó agora leva cerca de 30 segundos para se soltar e se fechar. Como a pose de partida depende da velocidade, gerei a imagem estática de novo.
+
+---
+
+## A escultura acorda quando o visitante está presente
+
+Comparei no laboratório duas versões novas contra a que estava no ar: uma mais lenta e uma que acorda quando o visitante interage. Escolhi a segunda ([decisão 0016](decisoes/0016-escultura-acorda.md)).
+
+**Como ficou:** a escultura começa quase parada e com 35% do brilho. Ao rolar, tocar, mexer o mouse ou apertar uma tecla, ela acorda: ganha brilho e se mexe, mais devagar que antes (velocidade 0.6). Depois de 6 segundos sem interação, ela se acalma de novo. Calma, ela é desenhada com menos frequência, para economizar bateria.
+
+**Como confirmei:** no computador, o brilho foi de 35% (parada) para 95% depois de rolar, e voltou para 40% cerca de 10 segundos depois. No celular, foi para 98% ao tocar. A troca da imagem pelo 3D ficou instantânea, porque os dois começam iguais e com o mesmo brilho.

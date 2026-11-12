@@ -83,6 +83,27 @@ body {
   transition-delay: 0.6s;
 }
 
+/* ---- A escultura acorda quando o visitante está presente (decisão 0016) --
+   Quando o 3D vai carregar, inicio.js adiciona .escultura--acordavel e a
+   variável --energia passa a ir de 0 (calma) a 1 (acordada), atualizada a
+   cada quadro pela escultura. Calma, ela fica com 35% do brilho.
+   Como o primeiro quadro do 3D é igual à imagem, a troca é instantânea,
+   sem fade. Sem 3D (por exemplo, com "reduzir movimento"), nada disso
+   acontece e a imagem fica com o brilho normal. */
+.escultura--acordavel {
+  --energia: 0;
+}
+
+.escultura--acordavel .escultura__imagem,
+.escultura--acordavel.escultura--viva .escultura__3d {
+  opacity: calc(0.35 + 0.65 * var(--energia));
+  transition: none;
+}
+
+.escultura--acordavel.escultura--viva .escultura__imagem {
+  opacity: 0;
+}
+
 /* Computador (a partir de 1024px): composição editorial.
    O rótulo e o ERK. ocupam a largura toda; embaixo, a frase à esquerda e o
    texto à direita, em colunas de larguras diferentes. A escultura fica

@@ -48,6 +48,8 @@ async function carregar() {
     await iniciarEscultura(canvas, {
       // Só troca a imagem pelo 3D quando o primeiro quadro já foi desenhado
       aoPrimeiroQuadro: () => caixa.classList.add('escultura--viva'),
+      // O brilho acompanha a "energia" da escultura (0 calma, 1 acordada)
+      aoMudarEnergia: (energia) => caixa.style.setProperty('--energia', energia.toFixed(3)),
     });
   } catch (erro) {
     // Se algo falhar, a imagem estática continua lá. Nada quebra.
@@ -62,4 +64,8 @@ function quandoLivre(acao) {
   else window.addEventListener('load', agendar, { once: true });
 }
 
-if (podeCarregar3D()) quandoLivre(carregar);
+if (podeCarregar3D()) {
+  // A imagem já fica "calma" (apagada), igual ao 3D quando ele começar
+  caixa.classList.add('escultura--acordavel');
+  quandoLivre(carregar);
+}

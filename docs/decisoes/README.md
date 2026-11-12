@@ -21,3 +21,4 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0013](0013-destaque-vinho-profundo.md) | Cor de destaque: vinho profundo | Aceita |
 | [0014](0014-threejs.md) | Three.js como primeira biblioteca externa | Aceita |
 | [0015](0015-escultura-na-pagina-inicial.md) | A escultura "No ties" na página inicial, com carregamento progressivo | Aceita |
+| [0016](0016-escultura-acorda.md) | A escultura acorda quando o visitante está presente | Aceita |
