@@ -170,3 +170,5 @@ Testando no meu celular, a página dava uma travada quando a escultura entrava. 
 **O que mudei:** a montagem agora é feita em etapas, com uma pausa entre elas para o navegador continuar respondendo. As etapas pesadas esperam a página ficar parada, sem rolagem, e o shader é compilado antes do primeiro quadro com `compileAsync`, que usa a compilação em paralelo da placa de vídeo quando o navegador oferece.
 
 **Como confirmei:** no computador, a escultura continua aparecendo normalmente, sem erros. A confirmação de verdade é no celular, depois de publicar.
+
+**Segunda rodada.** No meu iPhone, ainda havia uma travada. O motivo: o Safari do iPhone não compila shaders em paralelo, então preparar o material metálico completo e a sala de reflexo continuava segurando a página. A solução foi dar ao celular um caminho mais leve: um material *matcap*, que usa uma imagem pronta de uma esfera do mesmo metal (8 KB) em vez de calcular os reflexos. Também fiz o site esperar a rolagem parar antes de baixar o Three.js. No computador, nada mudou.

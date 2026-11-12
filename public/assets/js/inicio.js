@@ -28,8 +28,21 @@ function podeCarregar3D() {
   return true;
 }
 
+// Guarda o momento da última rolagem, para não começar nada pesado no meio de um gesto
+let ultimaRolagem = -Infinity;
+window.addEventListener('scroll', () => { ultimaRolagem = performance.now(); }, { passive: true });
+
+async function esperarRolagemParar() {
+  while (performance.now() - ultimaRolagem < 400) {
+    await new Promise((pronto) => setTimeout(pronto, 150));
+  }
+}
+
 async function carregar() {
   try {
+    // Baixar e preparar o Three.js também ocupa o navegador por um instante:
+    // espera a página ficar parada antes de começar
+    await esperarRolagemParar();
     const { iniciarEscultura } = await import('./escultura.js');
     // A montagem é feita em etapas (ver escultura.js); o await espera todas
     await iniciarEscultura(canvas, {

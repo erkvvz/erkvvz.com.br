@@ -240,10 +240,11 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
 
   const cena = new THREE.Scene();
 
-  // Etapa pesada 1: a sala de reflexo (desenhada na placa de vídeo)
+  // Etapa pesada 1: a sala de reflexo (desenhada na placa de vídeo).
+  // No celular ela não é gerada: o reflexo vem pronto numa imagem (matcap).
   await respirar();
   await esperarRolagemParar();
-  cena.environment = criarAmbiente(renderer);
+  if (!ehCelular) cena.environment = criarAmbiente(renderer);
   await respirar();
 
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
@@ -257,14 +258,28 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
     uAfinar: { value: 1 },
   };
 
-  const material = new THREE.MeshPhysicalMaterial({
-    color: 0xb4b4b4,
-    metalness: 1,
-    roughness: AJUSTES.rugosidade,
-    clearcoat: 1,
-    clearcoatRoughness: 0.12,
-    side: THREE.DoubleSide,
-  });
+  /* Dois materiais para o mesmo metal:
+     - no computador, o material físico completo, que calcula os reflexos
+       da sala de luz a cada quadro (bonito, mas pesado de preparar);
+     - no celular, um "matcap": uma imagem de uma esfera desse mesmo metal,
+       renderizada antes. O shader só consulta a imagem, então é muito mais
+       leve de compilar e de desenhar. O visual fica bem parecido. */
+  let material;
+  if (ehCelular) {
+    const matcap = await new THREE.TextureLoader().loadAsync(new URL('../img/matcap-no-ties.webp', import.meta.url).href);
+    matcap.colorSpace = THREE.SRGBColorSpace;
+    material = new THREE.MeshMatcapMaterial({ matcap, side: THREE.DoubleSide });
+    material.toneMapped = false; // a imagem já tem o tratamento de cor aplicado
+  } else {
+    material = new THREE.MeshPhysicalMaterial({
+      color: 0xb4b4b4,
+      metalness: 1,
+      roughness: AJUSTES.rugosidade,
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+      side: THREE.DoubleSide,
+    });
+  }
 
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
