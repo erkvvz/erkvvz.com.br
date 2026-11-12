@@ -99,7 +99,7 @@ Minimalista, editorial e escura, como uma publicação digital ou um estúdio cr
 
 - **Escuro, mas não preto puro.** Fundo grafite quase preto, texto em branco quebrado e uma escala de cinzas.
 - **Tipografia forte.** Quando não houver imagem, a tipografia é a imagem.
-- **Três fontes, cada uma com um papel:** Instrument Serif para títulos e para o ERK., Geist para leitura e interface, e Geist Mono para detalhes como datas, tecnologias e BPM.
+- **Três fontes, cada uma com um papel:** Instrument Serif para títulos e para o ERK., Geist para leitura e interface, e Geist Mono para detalhes como datas, tecnologias e BPM. *(Atualização: desde a [decisão 0017](decisoes/0017-identidade-tag-e-sorrisos.md), o ERK. é a minha tag desenhada, e as fontes são Inter e JetBrains Mono.)*
 - **Preto, branco e vinho profundo.** O vinho é o único destaque e aparece só em detalhes: pontos, sublinhados e setas.
 - **O ponto como assinatura.** O `.` de ERK. pode marcar a seção ativa, indicar carregamento e pulsar quando uma música estiver tocando.
 - **Catálogo numerado.** Projetos, beats e textos recebem números, como um selo de discos: `001`, `B-001`, `J-001`.
@@ -164,6 +164,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | Concluída |
 | 6 | Página inicial, primeira versão | Concluída |
 | 6.1 | Escultura 3D "No ties" na página inicial | Concluída |
+| 6.2 | Identidade nova: a minha tag, a escultura "Sorrisos", Inter e o fundo de grão | Concluída |
 | 7 | Sobre, com meus conhecimentos técnicos | |
 | 8 | Projetos, com este site como projeto 001 | |
 | 9 | Contato, SEO, prévia de compartilhamento, favicon e página 404 | |

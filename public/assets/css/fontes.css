@@ -1,44 +1,33 @@
 /* ==========================================================================
    Fontes
    As fontes ficam hospedadas no próprio site (pasta /assets/fontes/).
-   Todas têm licença aberta (SIL Open Font License).
+   Todas têm licença aberta (SIL Open Font License); as licenças estão em
+   /assets/fontes/licencas/.
+
+   Só o subconjunto "latino" de cada fonte (letras, acentos do português,
+   números e pontuação): o arquivo fica bem menor.
 
    font-display: swap → enquanto a fonte carrega, o texto aparece numa
    fonte do sistema. Assim ninguém fica olhando para uma tela sem texto.
+
+   O ERK. não usa fonte: é a tag desenhada à mão (decisão 0017).
    ========================================================================== */
 
-/* Instrument Serif: títulos e identidade editorial */
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("/assets/fontes/instrument-serif-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("/assets/fontes/instrument-serif-italico.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Geist: textos e interface.
+/* Inter: textos, títulos e interface.
    É uma fonte "variável": um único arquivo contém todos os pesos (100 a 900). */
 @font-face {
-  font-family: "Geist";
-  src: url("/assets/fontes/geist-variavel.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/assets/fontes/inter-variavel.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* Geist Mono: informações técnicas e pequenos detalhes */
+/* JetBrains Mono: rótulos, metadados e pequenos detalhes (fonte de código) */
 @font-face {
-  font-family: "Geist Mono";
-  src: url("/assets/fontes/geist-mono-variavel.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "JetBrains Mono";
+  src: url("/assets/fontes/jetbrains-mono-variavel.woff2") format("woff2");
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
 }

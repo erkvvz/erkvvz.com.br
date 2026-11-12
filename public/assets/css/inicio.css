@@ -28,7 +28,7 @@ body {
   z-index: 1;
 }
 
-/* ---- Escultura "No ties" -------------------------------------------------
+/* ---- Escultura "Sorrisos" (decisão 0017) ---------------------------------
    Uma caixa por trás do lado direito do topo. Dentro dela:
    - a imagem estática, que aparece sempre;
    - o canvas do 3D, que só aparece (com um fade) quando o primeiro quadro
@@ -105,10 +105,10 @@ body {
 }
 
 /* Computador (a partir de 1024px): composição editorial.
-   O rótulo e o ERK. ocupam a largura toda; embaixo, a frase à esquerda e o
-   texto à direita, em colunas de larguras diferentes. A escultura fica
-   grande, por trás do lado direito, e uma sombra escura atrás do texto
-   garante a leitura (decisão 0015). */
+   O rótulo em cima; embaixo, a tag ERK. à esquerda e o texto à direita, em
+   colunas de larguras diferentes. A escultura fica grande, por trás do lado
+   direito; o texto passa um pouco por cima dela, e a sombra de cada letra
+   garante a leitura (decisões 0015 e 0017). */
 @media (min-width: 64rem) {
   .apresentacao {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -116,30 +116,28 @@ body {
     row-gap: var(--espaco-7);
   }
 
-  .apresentacao__rotulo,
-  .apresentacao__marca {
+  .apresentacao__rotulo {
     grid-column: 1 / -1;                   /* largura toda */
   }
 
-  .apresentacao__frase {
+  .apresentacao__marca {
     grid-column: 1;
+    grid-row: 2;
   }
 
+  /* O texto começa um pouco abaixo do topo da tag, para mostrar mais da
+     escultura por cima dele */
   .apresentacao__texto {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 2;
+    align-self: start;
+    margin-top: var(--espaco-9);
   }
 
-  /* A sombra atrás do texto: um degradê escuro e suave, em forma de elipse,
-     que apaga a escultura só ali. O z-index -1 a coloca atrás do texto,
-     mas ainda na frente da escultura (o texto tem z-index 1). */
-  .apresentacao__texto::before {
-    content: "";
-    position: absolute;
-    inset: calc(var(--espaco-7) * -1) calc(var(--espaco-9) * -1);
-    z-index: -1;
-    background: radial-gradient(ellipse at 50% 50%, rgb(11 11 11 / 0.95) 52%, rgb(11 11 11 / 0) 78%);
-    pointer-events: none;
+  /* "clip" corta o que passar da borda direita sem criar barra de rolagem
+     lateral (diferente de "hidden", não transforma o body numa caixa de rolagem). */
+  body {
+    overflow-x: clip;
   }
 
   /* A caixa encosta na borda direita da tela. (100% - 100cqw) / 2 é a
@@ -176,27 +174,20 @@ body {
   text-transform: uppercase;
 }
 
-.apresentacao__marca {
-  margin-block: calc(var(--espaco-5) * -1) 0; /* aproxima o ERK. do rótulo */
-  font-size: var(--marca);
-  line-height: 0.85;
-  letter-spacing: -0.03em;
+/* O ERK. grande: a tag cromada (uma imagem SVG, decisão 0017) */
+.apresentacao__marca img {
+  width: min(100%, 34rem);
+  height: auto;
 }
 
-.apresentacao__frase {
-  max-width: 24ch;                         /* no computador, a frase fica em duas linhas */
-  font-family: var(--fonte-titulo);
-  font-size: var(--titulo-2);
-  font-style: italic;
-  line-height: 1.1;
-  text-wrap: balance;
-}
-
+/* Cada letra tem a própria sombra: um halo escuro colado no contorno, que
+   separa o texto da escultura e do fundo sem formar um "bloco" visível. */
 .apresentacao__texto {
   display: flex;
   flex-direction: column;
   gap: var(--espaco-4);
   color: var(--cor-texto-suave);
+  text-shadow: 0 0 0.35em var(--cor-fundo), 0 0 0.8em var(--cor-fundo), 0 0 1.4em rgb(11 11 11 / 0.8);
 }
 
 .apresentacao__autor {

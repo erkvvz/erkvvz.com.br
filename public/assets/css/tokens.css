@@ -18,8 +18,9 @@
   --cor-texto-suave: #A8A8A4;    /* textos secundários (8.3) */
   --cor-texto-fraco: #83837D;    /* metadados, datas, legendas (5.2) */
 
-  /* Destaque: vinho profundo, só em detalhes grandes (o ponto do ERK. na
-     página inicial). É escuro demais para texto sobre o preto (1.9). */
+  /* Destaque: vinho profundo, só em detalhes grandes (os reflexos da
+     escultura, o brilho no cromado da tag). É escuro demais para texto
+     sobre o preto (1.9). Os SVGs da tag usam o mesmo valor, escrito à mão. */
   --cor-destaque: #702638;
 
   /* Versão clara do mesmo vinho, para detalhes pequenos (pontos, setas,
@@ -30,9 +31,9 @@
      Fontes
      Se a fonte principal não carregar, o navegador usa as seguintes da lista.
      ------------------------------------------------------------------------ */
-  --fonte-titulo: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --fonte-texto: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --fonte-mono: "Geist Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --fonte-titulo: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-texto: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
 
   /* ------------------------------------------------------------------------
      Tamanhos de texto

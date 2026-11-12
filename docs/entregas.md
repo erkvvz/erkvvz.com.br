@@ -200,3 +200,20 @@ Comparei no laboratório duas versões novas contra a que estava no ar: uma mais
 **Como ficou:** a escultura começa quase parada e com 35% do brilho. Ao rolar, tocar, mexer o mouse ou apertar uma tecla, ela acorda: ganha brilho e se mexe, mais devagar que antes (velocidade 0.6). Depois de 6 segundos sem interação, ela se acalma de novo. Calma, ela é desenhada com menos frequência, para economizar bateria.
 
 **Como confirmei:** no computador, o brilho foi de 35% (parada) para 95% depois de rolar, e voltou para 40% cerca de 10 segundos depois. No celular, foi para 98% ao tocar. A troca da imagem pelo 3D ficou instantânea, porque os dois começam iguais e com o mesmo brilho.
+
+---
+
+## Entrega 6.2: identidade nova
+
+A fonte dos títulos era o que mais me incomodava. Juntei referências do que eu gosto (hip hop e rap, pixação, graffiti, dualidade, um yin yang com dois sorrisos de dentes de ouro) e testei no laboratório várias esculturas, fontes, fundos e cores, combinando tudo ao vivo na página inicial. Também escrevi a minha tag numa folha, e ela foi vetorizada ([decisão 0017](decisoes/0017-identidade-tag-e-sorrisos.md)).
+
+**O que mudou:**
+- Todo "ERK." sozinho agora é a minha tag: cromada no título da página inicial, em traço de caneta no topo e no rodapé de todas as páginas.
+- A escultura virou a "Sorrisos": um yin yang de metal, prata e vinho, com um sorriso de dentes de ouro em cada metade. As metades se afastam e se encaixam, mais rápido que o nó (velocidade 1.8).
+- Fontes novas: Inter para textos e títulos, JetBrains Mono para rótulos.
+- Um fundo de grão de filme em todas as páginas.
+- A frase de abertura saiu; o texto de apresentação subiu para o lado da tag, por cima da escultura, e cada letra ganhou a própria sombra no lugar da mancha escura que ficava atrás do texto.
+
+**Duas correções que entram junto:** a escultura, que sobe até o cabeçalho, era pintada por cima do menu (Sobre, Projetos, Contato); agora o cabeçalho fica numa camada acima dela. E, no computador, a página rolava 40 px para o lado por causa da sombra atrás do texto; agora o que passa da borda é cortado com `overflow-x: clip`.
+
+**Como confirmei:** no computador e no simulador de celular, sem erros no console e sem rolagem para os lados; as fontes antigas não são mais carregadas; a escultura aparece, acorda ao mexer o mouse ou tocar na tela e, no celular, usa o material leve. Conferi também as páginas Sobre e Arquivo.

@@ -1,17 +1,19 @@
 /* ==========================================================================
-   Escultura "No ties" · página inicial
+   Escultura "Sorrisos" · página inicial (decisão 0017)
 
-   Um nó de metal que se desata: começa amarrado em si mesmo e, aos poucos,
-   se solta num fio livre. Vem do meu antigo nome artístico, "No ties"
-   ("sem amarras").
+   Um yin yang de metal: uma metade prata polida e outra vinho, cada uma com
+   um ponto da outra dentro, e um sorriso vermelho de dentes de ouro em cada
+   metade (frente e verso). Vem das referências do Erick: a dualidade, as
+   "duas faces", o yin yang pintado com dois sorrisos e a cultura do rap.
 
    Comportamento:
-   - respira sozinho: se solta e se fecha, devagar;
-   - rolar a página para baixo solta; para cima, fecha;
-   - inclina e muda a luz conforme o mouse.
+   - respira sozinha: as metades se afastam, giram e se encaixam de novo;
+   - rolar a página para baixo afasta; para cima, encaixa;
+   - inclina e muda a luz conforme o mouse;
+   - fica calma e apagada até o visitante interagir (decisão 0016).
 
    Este arquivo só é carregado quando o aparelho pode (ver inicio.js).
-   O protótipo com controles fica no laboratório privado.
+   O protótipo com todas as formas fica no laboratório privado.
    ========================================================================== */
 
 import * as THREE from 'three';
@@ -19,153 +21,96 @@ import * as THREE from 'three';
 /* ---- Valores escolhidos no laboratório ----------------------------------- */
 
 const AJUSTES = {
-  tamanho: 1.3,
-  deformacao: 0.10,
-  frequencia: 0.73,
-  velocidade: 0.6,
-  rugosidade: 0.32,
-  luzVinho: 6,
+  tamanho: 1.3,       // aproximação da câmera
+  velocidade: 1.8,    // escolhida no laboratório (o nó usava 0.6)
+  rugosidade: 0.32,   // metal da sala de reflexo
+  luzVinho: 6,        // força das faixas vinho na sala de reflexo
 };
-const ajustes = AJUSTES; // usado pela função de ambiente
 
 const VINHO = new THREE.Color('#702638');
 const VINHO_CLARO = new THREE.Color('#C05A72');
+const TAU = Math.PI * 2;
 
 const ehCelular = matchMedia('(max-width: 48rem), (hover: none) and (pointer: coarse)').matches;
 
-/* ---- Os dois caminhos do fio ---------------------------------------------
-   Uma "curva" é uma linha no espaço 3D. O tubo de metal é construído em volta
-   dela. Temos duas: o nó (amarrado) e o fio livre (desatado). O mesmo ponto t
-   do fio (de 0 a 1) existe nas duas, então dá para ir de uma à outra. */
+// Começa e termina devagar (0 → 1)
+const suave = (x) => x * x * (3 - 2 * x);
 
-class CurvaNo extends THREE.Curve {
-  // Nó toroidal: o fio dá p voltas num sentido e q no outro antes de fechar
-  constructor(p = 2, q = 3, raio = 1) { super(); this.p = p; this.q = q; this.raio = raio; }
-  getPoint(t, alvo = new THREE.Vector3()) {
-    const u = t * this.p * Math.PI * 2;
-    const qu = (this.q / this.p) * u;
-    const r = this.raio * (2 + Math.cos(qu)) * 0.5;
-    return alvo.set(r * Math.cos(u), r * Math.sin(u), this.raio * Math.sin(qu) * 0.5);
-  }
+/* ---- A forma --------------------------------------------------------------
+   Cada metade é um desenho 2D (Shape) "extrudado": ganha espessura, como um
+   biscoito cortado com forma, com as bordas arredondadas (bevel). */
+
+function montarSorrisos(grupo, criarMetal) {
+  const leve = ehCelular;   // no celular, menos detalhes nas curvas
+  const R = 1.15, prof = 0.32;
+
+  // Metade "yin": a metade esquerda do círculo, mais a barriga embaixo, menos o recorte em cima
+  const contorno = new THREE.Shape();
+  contorno.moveTo(0, R);
+  contorno.absarc(0, 0, R, Math.PI / 2, Math.PI * 1.5, false);
+  contorno.absarc(0, -R / 2, R / 2, -Math.PI / 2, Math.PI / 2, false);
+  contorno.absarc(0, R / 2, R / 2, -Math.PI / 2, Math.PI / 2, true);
+  const furo = new THREE.Path();                     // o buraco onde entra o ponto da outra cor
+  furo.absarc(0, -R / 2, R / 7, 0, TAU, true);
+  contorno.holes.push(furo);
+
+  const opcoes = { depth: prof, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.05, bevelSegments: leve ? 3 : 6, curveSegments: leve ? 48 : 96 };
+  const geoA = new THREE.ExtrudeGeometry(contorno, opcoes);
+  geoA.translate(0, 0, -prof / 2);                   // centraliza na espessura
+  const geoB = geoA.clone().rotateZ(Math.PI);        // a outra metade é a mesma, girada meia volta
+  const ponto = new THREE.CylinderGeometry(R / 7 - 0.03, R / 7 - 0.03, prof + 0.1, leve ? 32 : 64).rotateX(Math.PI / 2);
+
+  const prata = criarMetal({ cor: 0xdedede, rugosidade: 0.1 });
+  const vinho = criarMetal({ cor: 0x8a2c44, corCelular: 0xb0506a, rugosidade: 0.35 });
+  const vermelho = criarMetal({ cor: 0xc0182c, corCelular: 0xe0303f, rugosidade: 0.3 });
+  const ouro = criarMetal({ cor: 0xd8a84a, corCelular: 0xf0c060, rugosidade: 0.15 });
+
+  // Cada lado: a metade, com o ponto da outra cor no buraco
+  const lado = (geo, matLado, matPonto, py) => {
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(geo, matLado));
+    const p = new THREE.Mesh(ponto, matPonto);
+    p.position.y = py;
+    g.add(p);
+    grupo.add(g);
+    return g;
+  };
+  const a = lado(geoA, prata, vinho, -R / 2);
+  const b = lado(geoB, vinho, prata, R / 2);
+
+  // O sorriso: uma meia-lua vermelha com cinco dentes de ouro, na frente e no verso
+  const boca = new THREE.Shape();
+  boca.moveTo(Math.cos(Math.PI + 0.4) * 0.34, Math.sin(Math.PI + 0.4) * 0.34);
+  boca.absarc(0, 0, 0.34, Math.PI + 0.4, TAU - 0.4, false);
+  boca.absarc(0, 0.12, 0.3, TAU - 0.55, Math.PI + 0.55, true);
+  const geoBoca = new THREE.ExtrudeGeometry(boca, { depth: 0.03, bevelEnabled: true, bevelThickness: 0.015, bevelSize: 0.012, bevelSegments: 2, curveSegments: leve ? 24 : 48 });
+  const geoDente = new THREE.BoxGeometry(0.075, 0.085, 0.03);
+  const sorriso = (g, x, y) => {
+    for (const face of [1, -1]) {                    // frente e verso
+      const s = new THREE.Group();
+      s.add(new THREE.Mesh(geoBoca, vermelho));
+      for (let i = 0; i < 5; i++) {
+        const ang = Math.PI + 0.95 + (i / 4) * (Math.PI - 1.9);
+        const d = new THREE.Mesh(geoDente, ouro);
+        d.position.set(Math.cos(ang) * 0.255, Math.sin(ang) * 0.255 + 0.035, 0.03);
+        d.rotation.z = ang + Math.PI / 2;
+        s.add(d);
+      }
+      s.position.set(x, y, face * (prof / 2 + 0.065));
+      if (face < 0) s.rotation.y = Math.PI;
+      g.add(s);
+    }
+  };
+  sorriso(a, -0.52, -0.02);
+  sorriso(b, 0.52, 0.12);
+
+  // A cada quadro: as metades se afastam e giram conforme a "soltura" (0 = encaixadas)
+  return (soltura) => {
+    const s = suave(soltura);
+    a.position.set(-0.45 * s, 0, 0.2 * s); a.rotation.z = 0.6 * s;
+    b.position.set(0.45 * s, 0, -0.2 * s); b.rotation.z = 0.6 * s;
+  };
 }
-
-class CurvaLivre extends THREE.Curve {
-  // Fio solto: uma espiral aberta que sobe e se afrouxa, com uma leve ondulação
-  getPoint(t, alvo = new THREE.Vector3()) {
-    const angulo = t * Math.PI * 2 * 1.25;
-    const raio = 0.35 + 1.2 * t;
-    return alvo.set(
-      Math.cos(angulo) * raio - 0.15,
-      (t - 0.5) * 2.8 + 0.25 * Math.sin(t * Math.PI * 6),
-      Math.sin(angulo) * raio * 0.6
-    );
-  }
-}
-
-/* ---- Geometria ------------------------------------------------------------ */
-
-// Guarda, para cada vértice, o centro do fio naquele trecho (serve para afinar as pontas)
-function centrosDoTubo(curva, segmentos, radiais) {
-  const centros = new Float32Array((segmentos + 1) * (radiais + 1) * 3);
-  const p = new THREE.Vector3();
-  for (let i = 0; i <= segmentos; i++) {
-    curva.getPointAt(i / segmentos, p);
-    for (let j = 0; j <= radiais; j++) p.toArray(centros, (i * (radiais + 1) + j) * 3);
-  }
-  return new THREE.BufferAttribute(centros, 3);
-}
-
-function criarGeometria() {
-  const segmentos = ehCelular ? 260 : 600;   // pedaços ao longo do fio
-  const radiais = ehCelular ? 28 : 56;       // pedaços em volta do fio
-  const espessura = 0.28;
-  const no = new CurvaNo(2, 3, 1);
-  const livre = new CurvaLivre();
-
-  const g = new THREE.TubeGeometry(no, segmentos, espessura, radiais, true);
-  const gLivre = new THREE.TubeGeometry(livre, segmentos, espessura, radiais, false);
-
-  // A geometria do nó carrega também a forma livre, como atributos extras
-  g.setAttribute('posLivre', gLivre.attributes.position);
-  g.setAttribute('normLivre', gLivre.attributes.normal);
-  g.setAttribute('centroNo', centrosDoTubo(no, segmentos, radiais));
-  g.setAttribute('centroLivre', centrosDoTubo(livre, segmentos, radiais));
-  gLivre.dispose();
-  return g;
-}
-
-/* ---- Shader: ruído + transição nó → fio livre ----------------------------
-   GLSL é a linguagem dos "shaders", programas que rodam na placa de vídeo.
-   Aqui ele: (1) mistura a forma do nó com a do fio livre, (2) afina as pontas
-   quando o fio se solta, (3) faz a superfície ondular com ruído e
-   (4) recalcula para onde a superfície aponta, para a luz refletir certo. */
-
-const ruidoGLSL = /* glsl */ `
-  // Ruído simplex 3D (Ashima Arts, licença MIT)
-  vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-  vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-  vec4 permute(vec4 x) { return mod289(((x * 34.0) + 10.0) * x); }
-  vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-  float snoise(vec3 v) {
-    const vec2 C = vec2(1.0 / 6.0, 1.0 / 3.0);
-    const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-    vec3 i = floor(v + dot(v, C.yyy));
-    vec3 x0 = v - i + dot(i, C.xxx);
-    vec3 g = step(x0.yzx, x0.xyz);
-    vec3 l = 1.0 - g;
-    vec3 i1 = min(g.xyz, l.zxy);
-    vec3 i2 = max(g.xyz, l.zxy);
-    vec3 x1 = x0 - i1 + C.xxx;
-    vec3 x2 = x0 - i2 + C.yyy;
-    vec3 x3 = x0 - D.yyy;
-    i = mod289(i);
-    vec4 p = permute(permute(permute(
-      i.z + vec4(0.0, i1.z, i2.z, 1.0))
-      + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-      + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-    float n_ = 0.142857142857;
-    vec3 ns = n_ * D.wyz - D.xzx;
-    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-    vec4 x_ = floor(j * ns.z);
-    vec4 y_ = floor(j - 7.0 * x_);
-    vec4 x = x_ * ns.x + ns.yyyy;
-    vec4 y = y_ * ns.x + ns.yyyy;
-    vec4 h = 1.0 - abs(x) - abs(y);
-    vec4 b0 = vec4(x.xy, y.xy);
-    vec4 b1 = vec4(x.zw, y.zw);
-    vec4 s0 = floor(b0) * 2.0 + 1.0;
-    vec4 s1 = floor(b1) * 2.0 + 1.0;
-    vec4 sh = -step(h, vec4(0.0));
-    vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
-    vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
-    vec3 p0 = vec3(a0.xy, h.x);
-    vec3 p1 = vec3(a0.zw, h.y);
-    vec3 p2 = vec3(a1.xy, h.z);
-    vec3 p3 = vec3(a1.zw, h.w);
-    vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
-    p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-    vec4 m = max(0.5 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
-    m = m * m;
-    return 105.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
-  }
-
-  attribute vec3 posLivre;
-  attribute vec3 normLivre;
-  attribute vec3 centroNo;
-  attribute vec3 centroLivre;
-
-  uniform float uTempo;
-  uniform float uDeformacao;
-  uniform float uFrequencia;
-  uniform float uSoltura;   // 0 = amarrado, 1 = livre
-  uniform float uAfinar;    // 1 = pontas afinam ao soltar; 0 = não (esfera)
-
-  vec3 deslocar(vec3 p, vec3 n) {
-    float onda = snoise(p * uFrequencia + vec3(0.0, uTempo * 0.12, uTempo * 0.08));
-    onda += 0.35 * snoise(p * uFrequencia * 2.3 - vec3(uTempo * 0.1));
-    return p + n * onda * uDeformacao;
-  }
-`;
 
 /* ---- Ambiente de reflexo -------------------------------------------------
    Metal não tem cor própria: ele mostra o que está ao redor. Então criamos
@@ -189,11 +134,11 @@ function criarAmbiente(renderer) {
     sala.add(malha);
   };
 
-  painel(8, 2.5, new THREE.Color(1, 1, 1), 3, [0, 7, 2]);                       // luz branca de cima
-  painel(1.2, 9, VINHO, ajustes.luzVinho, [-7, 0, 1]);                           // faixa vinho à esquerda
-  painel(0.8, 7, VINHO_CLARO, ajustes.luzVinho * 0.5, [6, 1, -3]);              // faixa vinho clara atrás
-  painel(0.4, 8, new THREE.Color(0.75, 0.85, 1), 1.6, [7, -1, 3]);              // faixa fria, fina, à direita
-  painel(10, 6, new THREE.Color(1, 1, 1), 0.35, [-3, -2, 8]);                    // luz branca suave pela frente
+  painel(8, 2.5, new THREE.Color(1, 1, 1), 3, [0, 7, 2]);                        // luz branca de cima
+  painel(1.2, 9, VINHO, AJUSTES.luzVinho, [-7, 0, 1]);                            // faixa vinho à esquerda
+  painel(0.8, 7, VINHO_CLARO, AJUSTES.luzVinho * 0.5, [6, 1, -3]);               // faixa vinho clara atrás
+  painel(0.4, 8, new THREE.Color(0.75, 0.85, 1), 1.6, [7, -1, 3]);               // faixa fria, fina, à direita
+  painel(10, 6, new THREE.Color(1, 1, 1), 0.35, [-3, -2, 8]);                     // luz branca suave pela frente
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   const textura = pmrem.fromScene(sala, 0.035).texture;
@@ -203,7 +148,7 @@ function criarAmbiente(renderer) {
 
 /* ---- Preparação em etapas ------------------------------------------------
    Montar a escultura dá trabalho: criar a forma, gerar a "sala" de reflexo e
-   compilar o shader na placa de vídeo. Feito tudo de uma vez, isso trava a
+   compilar os shaders na placa de vídeo. Feito tudo de uma vez, isso trava a
    página por um instante (no celular, dá para sentir). Por isso a montagem é
    dividida em etapas, com uma pausa entre elas para o navegador respirar,
    e as etapas pesadas esperam a pessoa parar de rolar a página. */
@@ -237,8 +182,8 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
      Ela começa quase parada e apagada ("energia" 0). Quando a pessoa rola,
      toca, mexe o mouse ou aperta uma tecla, ela acorda (energia 1): ganha
      brilho e volta a se mexer. Depois de alguns segundos sem interação, ela
-     se acalma de novo. É a presença de quem visita que solta o nó.
-     O brilho é aplicado pela página (aoMudarEnergia); aqui fica o movimento. */
+     se acalma de novo. O brilho é aplicado pela página (aoMudarEnergia);
+     aqui fica o movimento. */
   const SEGUNDOS_ACORDADA = 6;
   let ultimaInteracao = -Infinity;
   let energia = 0;
@@ -263,73 +208,33 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
   camera.position.set(0, 0, 8.5 / AJUSTES.tamanho);
 
-  const uniforms = {
-    uTempo: { value: 0 },
-    uDeformacao: { value: AJUSTES.deformacao },
-    uFrequencia: { value: AJUSTES.frequencia },
-    uSoltura: { value: 0 },
-    uAfinar: { value: 1 },
-  };
-
-  /* Dois materiais para o mesmo metal:
+  /* Dois tipos de metal:
      - no computador, o material físico completo, que calcula os reflexos
        da sala de luz a cada quadro (bonito, mas pesado de preparar);
-     - no celular, um "matcap": uma imagem de uma esfera desse mesmo metal,
-       renderizada antes. O shader só consulta a imagem, então é muito mais
-       leve de compilar e de desenhar. O visual fica bem parecido. */
-  let material;
+     - no celular, um "matcap": uma imagem de uma esfera de metal, renderizada
+       antes e tingida com a cor de cada peça. O shader só consulta a imagem,
+       então é muito mais leve de compilar e de desenhar. */
+  let matcap = null;
   if (ehCelular) {
-    const matcap = await new THREE.TextureLoader().loadAsync(new URL('../img/matcap-no-ties.webp', import.meta.url).href);
+    matcap = await new THREE.TextureLoader().loadAsync(new URL('../img/matcap-metal.webp', import.meta.url).href);
     matcap.colorSpace = THREE.SRGBColorSpace;
-    material = new THREE.MeshMatcapMaterial({ matcap, side: THREE.DoubleSide });
-    material.toneMapped = false; // a imagem já tem o tratamento de cor aplicado
-  } else {
-    material = new THREE.MeshPhysicalMaterial({
-      color: 0xb4b4b4,
-      metalness: 1,
-      roughness: AJUSTES.rugosidade,
-      clearcoat: 1,
-      clearcoatRoughness: 0.12,
-      side: THREE.DoubleSide,
+  }
+  function criarMetal({ cor = 0xb4b4b4, corCelular = 0xffffff, rugosidade = AJUSTES.rugosidade } = {}) {
+    if (ehCelular) {
+      const m = new THREE.MeshMatcapMaterial({ matcap, color: corCelular, side: THREE.DoubleSide });
+      m.toneMapped = false; // a imagem já tem o tratamento de cor aplicado
+      return m;
+    }
+    return new THREE.MeshPhysicalMaterial({
+      color: cor, metalness: 1, roughness: rugosidade,
+      clearcoat: 1, clearcoatRoughness: 0.12, side: THREE.DoubleSide,
     });
   }
 
-  material.onBeforeCompile = (shader) => {
-    Object.assign(shader.uniforms, uniforms);
-    shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', `#include <common>\n${ruidoGLSL}`)
-      .replace('#include <beginnormal_vertex>', /* glsl */ `
-        // Suaviza a transição: começa e termina devagar
-        float s = smoothstep(0.0, 1.0, uSoltura);
-
-        // 1. Mistura o nó com o fio livre
-        vec3 centro = mix(centroNo, centroLivre, s);
-        vec3 base = mix(position, posLivre, s);
-        vec3 nBase = normalize(mix(normal, normLivre, s));
-
-        // 2. Quando o fio se solta, ele fica mais fino e leve, e as pontas afinam
-        //    (uv.x vai de 0 a 1 ao longo do fio)
-        float ponta = smoothstep(0.0, 0.14, uv.x) * smoothstep(1.0, 0.86, uv.x);
-        float leveza = mix(1.0, 0.6, s);
-        base = centro + (base - centro) * mix(1.0, ponta * leveza, s * uAfinar);
-
-        // 3. Ondula a superfície e 4. recalcula a normal com dois vizinhos
-        vec3 pDesl = deslocar(base, nBase);
-        vec3 tg = abs(nBase.y) < 0.99 ? normalize(cross(nBase, vec3(0.0, 1.0, 0.0))) : normalize(cross(nBase, vec3(1.0, 0.0, 0.0)));
-        vec3 bt = cross(nBase, tg);
-        float e = 0.01;
-        vec3 pT = deslocar(base + tg * e, nBase);
-        vec3 pB = deslocar(base + bt * e, nBase);
-        vec3 objectNormal = normalize(cross(pT - pDesl, pB - pDesl));
-      `)
-      .replace('#include <begin_vertex>', 'vec3 transformed = pDesl;');
-  };
-
+  // Etapa 2: a forma (no processador)
   const grupo = new THREE.Group();
-  const malha = new THREE.Mesh(criarGeometria(), material);   // etapa 2: a forma (no processador)
+  const moverPecas = montarSorrisos(grupo, criarMetal);
   await respirar();
-  malha.frustumCulled = false; // a forma muda no shader; evita sumir nas bordas da tela
-  grupo.add(malha);
   cena.add(grupo);
 
   // Uma luz vinho que segue o mouse
@@ -361,8 +266,8 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
 
   /* ---- Respiração e rolagem ----
      "fase" é a posição no ciclo da respiração (uma volta = 2π).
-     Sozinha, ela avança: o nó se solta e depois se fecha.
-     Rolando a página: para baixo solta, para cima fecha. Ao parar, a
+     Sozinha, ela avança: as metades se afastam e depois se encaixam.
+     Rolando a página: para baixo afasta, para cima encaixa. Ao parar, a
      respiração continua no mesmo sentido em que a rolagem ia. */
   let fase = 0;
   let momentoDaRolagem = -Infinity;
@@ -378,10 +283,10 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
   function aplicarRolagem() {
     if (!deltaRolagem) return;
     // Limita o efeito de cada quadro: um salto grande de rolagem (por exemplo,
-    // o navegador voltando para onde a página estava) não faz o nó "pular"
+    // o navegador voltando para onde a página estava) não faz a escultura "pular"
     const delta = Math.max(-60, Math.min(60, deltaRolagem));
     let s = 0.5 - 0.5 * Math.cos(fase);
-    s = Math.min(Math.max(s + delta * 0.0015, 0), 1);   // ~670 px de rolagem = do fechado ao solto
+    s = Math.min(Math.max(s + delta * 0.0015, 0), 1);   // ~670 px de rolagem = do encaixado ao afastado
     const meio = Math.acos(1 - 2 * s);
     fase = deltaRolagem > 0 ? meio : Math.PI * 2 - meio;
   }
@@ -398,7 +303,7 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
   let preparando = true;
   let influenciaMouse = 0;
 
-  // Atualiza o estado (tempo, giro, soltura, mouse) sem desenhar
+  // Atualiza o estado (giro, soltura, mouse) sem desenhar
   function atualizar(dt) {
     if (!preparando) {
       const acordada = performance.now() - ultimaInteracao < SEGUNDOS_ACORDADA * 1000;
@@ -407,7 +312,6 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
       aoMudarEnergia?.(energia);
       dt *= 0.04 + 0.96 * energia;   // calma, ela fica quase parada
     }
-    uniforms.uTempo.value += dt * AJUSTES.velocidade;
     giro += dt * 0.12 * AJUSTES.velocidade;
 
     if (!preparando && estaRolando()) aplicarRolagem();
@@ -419,7 +323,7 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
     const my = alvo.y * influenciaMouse;
 
     solturaAtual += ((0.5 - 0.5 * Math.cos(fase)) - solturaAtual) * 0.06;
-    uniforms.uSoltura.value = solturaAtual;
+    moverPecas(solturaAtual);
 
     grupo.rotation.y += (giro + mx * 0.35 - grupo.rotation.y) * 0.04;
     grupo.rotation.x += (my * 0.25 - grupo.rotation.x) * 0.04;
@@ -459,7 +363,7 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro, aoMudarEnergi
     else relogio.getDelta();                           // descarta o tempo parado
     requestAnimationFrame(loop);
   }
-  // Etapa pesada 3: compila o shader antes do primeiro quadro. compileAsync
+  // Etapa pesada 3: compila os shaders antes do primeiro quadro. compileAsync
   // usa a compilação em paralelo da placa de vídeo quando o navegador oferece.
   await esperarRolagemParar();
   await renderer.compileAsync(cena, camera);

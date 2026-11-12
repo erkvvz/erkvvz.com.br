@@ -40,28 +40,29 @@ main {
   gap: var(--espaco-3) var(--espaco-6);
   padding-block: var(--espaco-5);
   border-bottom: 1px solid var(--cor-borda);
+  /* Fica numa camada acima da escultura da página inicial, que sobe até aqui.
+     Sem isso, a escultura (posicionada) é pintada por cima do menu. */
+  position: relative;
+  z-index: 2;
 }
 
+/* O ERK. é a tag do Erick (uma imagem SVG), nunca texto digitado (decisão 0017).
+   O texto alternativo "ERK." é o que leitores de tela e o Google leem. */
 .cabecalho__marca {
-  font-family: var(--fonte-titulo);
-  font-size: var(--titulo-3);
-  line-height: 1;
+  display: inline-flex;
+  align-self: center;
   text-decoration: none;
 }
 
-/* O ponto do ERK. é a assinatura do site: sempre na cor de destaque.
-   Nos tamanhos pequenos (cabeçalho e rodapé), usa o tom claro do destaque para não sumir. */
-.ponto {
-  color: var(--cor-destaque);
+.cabecalho__tag {
+  display: block;
+  width: auto;
+  height: 2.1rem;
+  transition: opacity var(--duracao-rapida) var(--curva-suave);
 }
 
-.cabecalho__marca .ponto,
-.rodape__assinatura .ponto {
-  color: var(--cor-destaque-claro);
-}
-
-.cabecalho__marca:hover {
-  color: var(--cor-texto);
+.cabecalho__marca:hover .cabecalho__tag {
+  opacity: 0.7;
 }
 
 /* ---- Menu principal ------------------------------------------------------ */
@@ -131,6 +132,8 @@ main {
 .rodape__email {
   font-family: var(--fonte-titulo);
   font-size: var(--titulo-3);
+  font-weight: 400;
+  letter-spacing: -0.025em;
   line-height: 1.2;
   text-decoration: none;
   overflow-wrap: anywhere; /* o e-mail quebra em vez de vazar em telas estreitas */
@@ -153,4 +156,14 @@ main {
   grid-column: 1 / -1;  /* ocupa a largura toda, nas duas colunas */
   color: var(--cor-texto-fraco);
   font-family: var(--fonte-mono);
+}
+
+/* A tag no rodapé: do tamanho da linha, alinhada no meio, um pouco apagada */
+.rodape__tag {
+  display: inline-block;
+  width: auto;
+  height: 1.7em;
+  margin-block: -0.4em;
+  vertical-align: middle;
+  opacity: 0.75;
 }
