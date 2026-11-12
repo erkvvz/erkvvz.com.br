@@ -201,21 +201,50 @@ function criarAmbiente(renderer) {
   return textura;
 }
 
+/* ---- Preparação em etapas ------------------------------------------------
+   Montar a escultura dá trabalho: criar a forma, gerar a "sala" de reflexo e
+   compilar o shader na placa de vídeo. Feito tudo de uma vez, isso trava a
+   página por um instante (no celular, dá para sentir). Por isso a montagem é
+   dividida em etapas, com uma pausa entre elas para o navegador respirar,
+   e as etapas pesadas esperam a pessoa parar de rolar a página. */
+
+let ultimaRolagemGlobal = -Infinity;
+window.addEventListener('scroll', () => { ultimaRolagemGlobal = performance.now(); }, { passive: true });
+
+// Devolve a vez ao navegador até ele ficar livre
+const respirar = () => new Promise((pronto) => {
+  if ('requestIdleCallback' in window) requestIdleCallback(() => pronto(), { timeout: 600 });
+  else setTimeout(pronto, 60);
+});
+
+// Espera a página ficar parada (sem rolagem) por pelo menos 300 ms
+async function esperarRolagemParar() {
+  while (performance.now() - ultimaRolagemGlobal < 300) {
+    await new Promise((pronto) => setTimeout(pronto, 120));
+  }
+}
+
 /* ---- Montagem ------------------------------------------------------------ */
 
 /**
- * Liga a escultura a um <canvas>.
+ * Liga a escultura a um <canvas>. É assíncrona: monta em etapas e só começa
+ * a desenhar quando tudo está pronto.
  * @param {HTMLCanvasElement} canvas
  * @param {{ aoPrimeiroQuadro?: () => void }} opcoes
  */
-export function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
+export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !ehCelular, alpha: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, ehCelular ? 1 : 1.5)); // limita a resolução
 
   const cena = new THREE.Scene();
+
+  // Etapa pesada 1: a sala de reflexo (desenhada na placa de vídeo)
+  await respirar();
+  await esperarRolagemParar();
   cena.environment = criarAmbiente(renderer);
+  await respirar();
 
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
   camera.position.set(0, 0, 8.5 / AJUSTES.tamanho);
@@ -269,7 +298,8 @@ export function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
   };
 
   const grupo = new THREE.Group();
-  const malha = new THREE.Mesh(criarGeometria(), material);
+  const malha = new THREE.Mesh(criarGeometria(), material);   // etapa 2: a forma (no processador)
+  await respirar();
   malha.frustumCulled = false; // a forma muda no shader; evita sumir nas bordas da tela
   grupo.add(malha);
   cena.add(grupo);
@@ -368,5 +398,11 @@ export function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
     else relogio.getDelta();                           // descarta o tempo parado
     requestAnimationFrame(loop);
   }
+  // Etapa pesada 3: compila o shader antes do primeiro quadro. compileAsync
+  // usa a compilação em paralelo da placa de vídeo quando o navegador oferece.
+  await esperarRolagemParar();
+  await renderer.compileAsync(cena, camera);
+  await respirar();
+
   requestAnimationFrame(loop);
 }

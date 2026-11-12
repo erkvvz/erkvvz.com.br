@@ -30,8 +30,9 @@ A escultura entra na página inicial em camadas:
 
 ## Consequências
 
-- **Peso:** a primeira visita, sem o 3D, transfere cerca de 147 KB. Com o 3D, cerca de 287 KB, dentro da meta de 300 KB.
+- **Peso:** a primeira visita, sem o 3D, transfere cerca de 147 KB. Com o 3D, cerca de 320 KB medidos no ar: a Cloudflare comprime o Three.js para 172 KB, um pouco menos do que eu tinha estimado (135 KB). Fica um pouco acima da meta de 300 KB, mas essa parte só é baixada depois que a página já está pronta.
 - O desenho pausa quando a escultura sai da tela ou a aba fica em segundo plano.
+- A montagem é feita em etapas, com pausas entre elas, e as partes pesadas esperam a rolagem parar. No primeiro teste no meu celular, a página dava uma travada quando o 3D entrava, porque tudo era preparado de uma vez.
 - No celular, a escultura usa menos detalhe e uma resolução menor.
 - A escultura é decorativa (`aria-hidden="true"`): leitores de tela a ignoram.
 - Se os valores da escultura mudarem no laboratório, a imagem estática precisa ser gerada de novo.

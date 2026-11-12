@@ -31,7 +31,8 @@ function podeCarregar3D() {
 async function carregar() {
   try {
     const { iniciarEscultura } = await import('./escultura.js');
-    iniciarEscultura(canvas, {
+    // A montagem é feita em etapas (ver escultura.js); o await espera todas
+    await iniciarEscultura(canvas, {
       // Só troca a imagem pelo 3D quando o primeiro quadro já foi desenhado
       aoPrimeiroQuadro: () => caixa.classList.add('escultura--viva'),
     });

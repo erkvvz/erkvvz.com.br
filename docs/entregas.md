@@ -159,4 +159,14 @@ Troquei o roxo por um **vinho profundo**, `#702638`, com um tom mais claro do me
 - Na troca da imagem pelo 3D, havia um instante com as duas meio transparentes e em poses diferentes. Fiz o 3D começar exatamente na pose da imagem e aparecer por cima dela antes de a imagem sair.
 - Ao gerar a imagem, a primeira tentativa saiu vazia: o quadro já tinha sido apagado quando tentei salvá-lo. A solução foi capturar no instante em que ele é desenhado.
 
-**Como confirmei que funcionou:** testei em 1440 e 375 pixels, sem rolagem para os lados; conferi a imagem sozinha e o 3D por cima dela; e medi o peso: cerca de 147 KB na primeira visita sem o 3D e 287 KB com ele.
+**Como confirmei que funcionou:** testei em 1440 e 375 pixels, sem rolagem para os lados; conferi a imagem sozinha e o 3D por cima dela; e medi o peso: cerca de 147 KB na primeira visita sem o 3D e, medido no ar, cerca de 320 KB com ele (a estimativa local era 287 KB; a compressão real da Cloudflare foi menor que a calculada).
+
+---
+
+## Ajuste depois da entrega 6.1: a travada no celular
+
+Testando no meu celular, a página dava uma travada quando a escultura entrava. A causa: toda a preparação do 3D acontecia de uma vez só (gerar a forma, a sala de reflexo e compilar o shader na placa de vídeo), e isso ocupava o navegador por um instante, inclusive enquanto eu rolava a página.
+
+**O que mudei:** a montagem agora é feita em etapas, com uma pausa entre elas para o navegador continuar respondendo. As etapas pesadas esperam a página ficar parada, sem rolagem, e o shader é compilado antes do primeiro quadro com `compileAsync`, que usa a compilação em paralelo da placa de vídeo quando o navegador oferece.
+
+**Como confirmei:** no computador, a escultura continua aparecendo normalmente, sem erros. A confirmação de verdade é no celular, depois de publicar.
