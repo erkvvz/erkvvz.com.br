@@ -4,20 +4,93 @@
    ========================================================================== */
 
 /* ---- Apresentação --------------------------------------------------------
-   Celular: tudo em uma coluna.
-   Computador: o ERK. ocupa a largura toda; embaixo, a frase à esquerda e o
-   texto à direita, em colunas de larguras diferentes (layout assimétrico). */
+   Celular: tudo em uma coluna, com a escultura apagada por trás do topo.
+   Computador: o texto numa coluna à esquerda e a escultura à direita. */
+
+/* O body vira um "container": dentro dele, a unidade cqw mede 1% da largura
+   do body (sem a barra de rolagem, ao contrário do vw). É ela que deixa a
+   escultura encostar na borda da tela sem criar rolagem para os lados. */
+body {
+  container-type: inline-size;
+}
 
 .apresentacao {
+  position: relative;                      /* referência para posicionar a escultura */
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--espaco-6);
   padding-block: var(--espaco-6) var(--espaco-9);
 }
 
-@media (min-width: 64rem) {               /* a partir de 1024px */
+/* O texto fica sempre na frente da escultura */
+.apresentacao > :not(.escultura) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Escultura "No ties" -------------------------------------------------
+   Uma caixa por trás do lado direito do topo. Dentro dela:
+   - a imagem estática, que aparece sempre;
+   - o canvas do 3D, que só aparece (com um fade) quando o primeiro quadro
+     estiver desenhado. Até lá, e se o 3D não carregar, fica a imagem.
+   A imagem é escalada pela altura, como a câmera do 3D: assim a troca
+   entre as duas não "pula". */
+
+.escultura {
+  position: absolute;
+  z-index: 0;
+  top: calc(var(--espaco-8) * -1);
+  right: calc(var(--margem-lateral) * -1);
+  width: calc(100cqw + 2 * var(--margem-lateral)); /* cqw não inclui as margens laterais do body */
+  max-width: none;
+  height: 70svh;
+  overflow: hidden;
+  pointer-events: none;                    /* não atrapalha cliques no texto */
+  opacity: 0.7;                            /* no celular, fica por trás do texto, um pouco apagada */
+  /* A parte de baixo some aos poucos, para não competir com o texto */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+.escultura__imagem,
+.escultura__3d {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: opacity 1.2s var(--curva-suave);
+}
+
+.escultura__imagem {
+  left: 50%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+.escultura__3d {
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+/* O 3D aparece aos poucos POR CIMA da imagem. A imagem só some depois que o
+   3D terminou de aparecer, para não haver um instante com as duas meio
+   transparentes ao mesmo tempo. */
+.escultura--viva .escultura__3d { opacity: 1; }
+.escultura--viva .escultura__imagem {
+  opacity: 0;
+  transition-duration: 0s;
+  transition-delay: 1.2s;
+}
+
+/* Computador (a partir de 1024px): composição editorial.
+   O rótulo e o ERK. ocupam a largura toda; embaixo, a frase à esquerda e o
+   texto à direita, em colunas de larguras diferentes. A escultura fica
+   grande, por trás do lado direito, e uma sombra escura atrás do texto
+   garante a leitura (decisão 0015). */
+@media (min-width: 64rem) {
   .apresentacao {
-    grid-template-columns: 7fr 5fr;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     column-gap: var(--espaco-8);
     row-gap: var(--espaco-7);
   }
@@ -25,6 +98,49 @@
   .apresentacao__rotulo,
   .apresentacao__marca {
     grid-column: 1 / -1;                   /* largura toda */
+  }
+
+  .apresentacao__frase {
+    grid-column: 1;
+  }
+
+  .apresentacao__texto {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  /* A sombra atrás do texto: um degradê escuro e suave, em forma de elipse,
+     que apaga a escultura só ali. O z-index -1 a coloca atrás do texto,
+     mas ainda na frente da escultura (o texto tem z-index 1). */
+  .apresentacao__texto::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--espaco-7) * -1) calc(var(--espaco-9) * -1);
+    z-index: -1;
+    background: radial-gradient(ellipse at 50% 50%, rgb(11 11 11 / 0.95) 52%, rgb(11 11 11 / 0) 78%);
+    pointer-events: none;
+  }
+
+  /* A caixa encosta na borda direita da tela. (100% - 100cqw) / 2 é a
+     distância do conteúdo até a borda do body; a margem lateral completa. */
+  .escultura {
+    top: calc(var(--espaco-8) * -1);
+    right: calc((100% - 100cqw) / 2 - var(--margem-lateral));
+    width: 52cqw;
+    height: min(100svh, 60rem);
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(to bottom, #000 75%, transparent);
+    mask-image: linear-gradient(to bottom, #000 75%, transparent);
+  }
+
+  /* Dentro da caixa, a escultura fica deslocada para a direita e é cortada
+     pela borda da tela, como uma foto que "sangra" numa revista */
+  .escultura__3d {
+    width: calc(100% + 16cqw);
+  }
+
+  .escultura__imagem {
+    left: calc(50% + 8cqw);
   }
 }
 

@@ -1,7 +1,7 @@
 # 0001. Começar com HTML, CSS e JavaScript puros
 
 - **Data:** novembro de 2026
-- **Status:** Aceita
+- **Status:** Aceita. A primeira biblioteca externa, o Three.js, entrou sem npm nem build ([decisão 0014](0014-threejs.md)).
 
 ## Contexto
 

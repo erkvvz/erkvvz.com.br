@@ -139,3 +139,24 @@ Registro do que fiz em cada entrega do projeto, dos problemas que apareceram e d
 ## Troca da cor de destaque
 
 Troquei o roxo por um **vinho profundo**, `#702638`, com um tom mais claro do mesmo vinho, `#C05A72`, para os detalhes pequenos ([decisão 0013](decisoes/0013-destaque-vinho-profundo.md)). As regras de uso continuaram as mesmas. Como as cores ficam em dois tokens, a troca foi mudar duas linhas do `tokens.css`.
+
+---
+
+## Entrega 6.1: a escultura "No ties" na página inicial
+
+**Objetivo:** levar a escultura 3D do laboratório para a página inicial sem perder velocidade, sem prejudicar o celular e com uma versão que funciona sem o 3D.
+
+**O que fiz**
+- Trouxe o Three.js para o site, sem npm, com um *import map* ([decisão 0014](decisoes/0014-threejs.md)).
+- Criei uma versão da escultura só com o que o site precisa, com os valores que escolhi no laboratório: o nó respira sozinho, se solta quando rolo a página para baixo e se fecha quando rolo para cima.
+- Gerei uma imagem estática da escultura a partir dela mesma, para aparecer antes do 3D e no lugar dele quando ele não carregar.
+- Escrevi o `inicio.js`, que decide se o 3D deve carregar: só depois da página pronta, e nunca com "reduzir movimento", economia de dados ou sem WebGL 2 ([decisão 0015](decisoes/0015-escultura-na-pagina-inicial.md)).
+- Mantive a composição editorial no computador (frase à esquerda, texto à direita), com a escultura grande por trás do lado direito e uma sombra escura atrás do texto. Escolhi essa entre quatro composições que comparei lado a lado.
+
+**Problemas e soluções**
+- Na primeira composição, a escultura ficava por trás dos parágrafos e atrapalhava a leitura. Testei mover o texto para a esquerda, mas isso tirava o ar editorial. A solução foi uma sombra suave atrás do texto, que apaga a escultura só ali.
+- A escultura criava rolagem para os lados. A unidade `vw` inclui a barra de rolagem; troquei por `cqw`, medida a partir da largura real do conteúdo.
+- Na troca da imagem pelo 3D, havia um instante com as duas meio transparentes e em poses diferentes. Fiz o 3D começar exatamente na pose da imagem e aparecer por cima dela antes de a imagem sair.
+- Ao gerar a imagem, a primeira tentativa saiu vazia: o quadro já tinha sido apagado quando tentei salvá-lo. A solução foi capturar no instante em que ele é desenhado.
+
+**Como confirmei que funcionou:** testei em 1440 e 375 pixels, sem rolagem para os lados; conferi a imagem sozinha e o 3D por cima dela; e medi o peso: cerca de 147 KB na primeira visita sem o 3D e 287 KB com ele.

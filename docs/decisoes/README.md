@@ -19,3 +19,5 @@ Uso este formato para lembrar dos motivos no futuro e para conseguir explicar ca
 | [0011](0011-pagina-arquivo.md) | Página Arquivo: um índice de tudo, inclusive do que ainda não existe | Aceita |
 | [0012](0012-destaque-roxo.md) | Cor de destaque: roxo berinjela, só nos detalhes | Regras valem; cores substituídas pela 0013 |
 | [0013](0013-destaque-vinho-profundo.md) | Cor de destaque: vinho profundo | Aceita |
+| [0014](0014-threejs.md) | Three.js como primeira biblioteca externa | Aceita |
+| [0015](0015-escultura-na-pagina-inicial.md) | A escultura "No ties" na página inicial, com carregamento progressivo | Aceita |

@@ -163,6 +163,7 @@ Cada entrega termina com algo que dá para ver e testar, e com um commit.
 | 4 | Sistema de design: cores, fontes e espaçamentos | Concluída |
 | 5 | Cabeçalho, menu e rodapé responsivos e navegáveis pelo teclado | Concluída |
 | 6 | Página inicial, primeira versão | Concluída |
+| 6.1 | Escultura 3D "No ties" na página inicial | Concluída |
 | 7 | Sobre, com meus conhecimentos técnicos | |
 | 8 | Projetos, com este site como projeto 001 | |
 | 9 | Contato, SEO, prévia de compartilhamento, favicon e página 404 | |
