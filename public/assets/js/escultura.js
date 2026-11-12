@@ -364,8 +364,11 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
 
   function aplicarRolagem() {
     if (!deltaRolagem) return;
+    // Limita o efeito de cada quadro: um salto grande de rolagem (por exemplo,
+    // o navegador voltando para onde a página estava) não faz o nó "pular"
+    const delta = Math.max(-60, Math.min(60, deltaRolagem));
     let s = 0.5 - 0.5 * Math.cos(fase);
-    s = Math.min(Math.max(s + deltaRolagem * 0.0015, 0), 1);   // ~670 px de rolagem = do fechado ao solto
+    s = Math.min(Math.max(s + delta * 0.0015, 0), 1);   // ~670 px de rolagem = do fechado ao solto
     const meio = Math.acos(1 - 2 * s);
     fase = deltaRolagem > 0 ? meio : Math.PI * 2 - meio;
   }
@@ -376,22 +379,32 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
   let solturaAtual = 0;
   let primeiro = true;
 
+  /* O mouse e a rolagem só passam a influenciar DEPOIS que o 3D aparece, e o
+     mouse entra aos poucos (em 1,5 s). Antes disso, a escultura segue
+     exatamente o caminho da imagem estática, para as duas coincidirem. */
+  let preparando = true;
+  let influenciaMouse = 0;
+
   // Atualiza o estado (tempo, giro, soltura, mouse) sem desenhar
   function atualizar(dt) {
     uniforms.uTempo.value += dt * AJUSTES.velocidade;
     giro += dt * 0.12 * AJUSTES.velocidade;
 
-    if (estaRolando()) aplicarRolagem();
+    if (!preparando && estaRolando()) aplicarRolagem();
     else fase += dt * 0.35 * AJUSTES.velocidade;
     deltaRolagem = 0;
+
+    if (!preparando) influenciaMouse = Math.min(influenciaMouse + dt / 1.5, 1);
+    const mx = alvo.x * influenciaMouse;
+    const my = alvo.y * influenciaMouse;
 
     solturaAtual += ((0.5 - 0.5 * Math.cos(fase)) - solturaAtual) * 0.06;
     uniforms.uSoltura.value = solturaAtual;
 
-    grupo.rotation.y += (giro + alvo.x * 0.35 - grupo.rotation.y) * 0.04;
-    grupo.rotation.x += (alvo.y * 0.25 - grupo.rotation.x) * 0.04;
-    luzMouse.position.x += (alvo.x * 4 - luzMouse.position.x) * 0.06;
-    luzMouse.position.y += (-alvo.y * 3 - luzMouse.position.y) * 0.06;
+    grupo.rotation.y += (giro + mx * 0.35 - grupo.rotation.y) * 0.04;
+    grupo.rotation.x += (my * 0.25 - grupo.rotation.x) * 0.04;
+    luzMouse.position.x += (mx * 4 - luzMouse.position.x) * 0.06;
+    luzMouse.position.y += (-my * 3 - luzMouse.position.y) * 0.06;
     cena.environmentRotation.y = giro * 0.5;
   }
 
@@ -402,10 +415,18 @@ export async function iniciarEscultura(canvas, { aoPrimeiroQuadro } = {}) {
   for (let i = 0; i < 156; i++) atualizar(1 / 60);
 
   function desenhar() {
+    if (primeiro) {
+      // Primeiro quadro: exatamente a pose da imagem (sem mouse, sem rolagem)
+      deltaRolagem = 0;
+      renderer.render(cena, camera);
+      relogio.getDelta();                              // zera o relógio da preparação
+      preparando = false;
+      primeiro = false;
+      aoPrimeiroQuadro?.();
+      return;
+    }
     atualizar(Math.min(relogio.getDelta(), 0.05));     // evita saltos depois de pausas
     renderer.render(cena, camera);
-
-    if (primeiro) { primeiro = false; aoPrimeiroQuadro?.(); }
   }
 
   function loop() {

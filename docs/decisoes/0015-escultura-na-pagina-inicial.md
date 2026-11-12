@@ -16,7 +16,7 @@ A escultura entra na página inicial em camadas:
 1. **Imagem estática primeiro.** A página chega com uma imagem da escultura (`escultura-no-ties.webp`, 45 KB), tirada da própria escultura 3D. É o que todo mundo vê de início.
 2. **O 3D só depois.** Quando a página termina de carregar e o navegador fica livre, um script (`inicio.js`) decide se o 3D deve entrar, e espera a rolagem parar antes de começar.
 3. **O 3D não entra** quando a pessoa pediu menos movimento no sistema, quando ativou economia de dados, ou quando o navegador não tem WebGL 2. Nesses casos, a imagem fica.
-4. **A troca é invisível.** O 3D começa exatamente na pose da imagem e aparece por cima dela com um fade. Só depois a imagem sai.
+4. **A troca é invisível.** O 3D começa exatamente na pose da imagem, sem seguir o mouse nem a rolagem no primeiro quadro, e aparece por cima dela com um fade de 0,6 segundo. Só depois a imagem sai, e o mouse passa a influenciar aos poucos.
 
 **Comportamento:** o nó respira sozinho (se solta e se fecha devagar). Rolando a página para baixo ele se solta; para cima, se fecha. Ele também inclina e muda a luz conforme o mouse.
 

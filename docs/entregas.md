@@ -176,3 +176,15 @@ Testando no meu celular, a página dava uma travada quando a escultura entrava. 
 **Terceira rodada.** Ficou só uma travadinha de menos de 1 segundo ao abrir no celular: é o tempo que o iPhone leva para ler o código do Three.js, e essa parte não dá para dividir. Em vez de tentar eliminá-la, mudei o momento em que ela acontece: no celular, o 3D só começa depois de 2 segundos sem nenhum toque na tela. A travadinha acontece enquanto a pessoa lê, com nada se mexendo, e não é percebida. No computador, a espera é de 0,4 segundo.
 
 **Revertido.** Testando no celular e no computador, a espera de 2 segundos deixou a experiência pior. Voltei o `inicio.js` para a versão anterior (material leve no celular e espera só a rolagem parar). A travadinha de menos de 1 segundo ao abrir no celular continua, e fica como ponto de melhoria para o futuro.
+
+---
+
+## Ajuste depois da entrega 6.1: a escultura no computador
+
+Gravei a tela do computador e encontrei três problemas:
+
+1. **Imagem dupla ao abrir.** O 3D já começava seguindo a posição do mouse, então ficava numa pose diferente da imagem estática durante a troca. Agora o primeiro quadro do 3D é exatamente a pose da imagem; o mouse passa a influenciar só depois, aos poucos, em 1,5 segundo. A troca também ficou mais curta (0,6 s).
+2. **Um "pulo" do nó logo depois de aparecer.** Um salto grande de rolagem (como o navegador voltando para onde a página estava) empurrava o nó de uma vez. Agora o efeito da rolagem em cada quadro tem um limite, e a rolagem só conta depois que o 3D apareceu.
+3. **O fio solto sumia.** Quando o nó se soltava, o fio ficava quase todo atrás da sombra do texto e cortado pela borda da tela. Subi a escultura, para o centro dela ficar acima da coluna de texto, e diminuí o corte na borda.
+
+**Como confirmei:** comparei o primeiro quadro do 3D com a imagem estática, com o mouse no canto da tela, e a diferença ficou abaixo de 1 numa escala de 0 a 255. Também conferi a escultura fechada e solta na nova posição.

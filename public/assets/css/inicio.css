@@ -57,7 +57,7 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  transition: opacity 1.2s var(--curva-suave);
+  transition: opacity 0.6s var(--curva-suave);
 }
 
 .escultura__imagem {
@@ -80,7 +80,7 @@ body {
 .escultura--viva .escultura__imagem {
   opacity: 0;
   transition-duration: 0s;
-  transition-delay: 1.2s;
+  transition-delay: 0.6s;
 }
 
 /* Computador (a partir de 1024px): composição editorial.
@@ -123,8 +123,10 @@ body {
 
   /* A caixa encosta na borda direita da tela. (100% - 100cqw) / 2 é a
      distância do conteúdo até a borda do body; a margem lateral completa. */
+  /* Subida de 12% da altura da tela: o centro da escultura fica acima da
+     coluna de texto, para o fio solto não sumir atrás da sombra do texto */
   .escultura {
-    top: calc(var(--espaco-8) * -1);
+    top: calc(var(--espaco-8) * -1 - 12svh);
     right: calc((100% - 100cqw) / 2 - var(--margem-lateral));
     width: 52cqw;
     height: min(100svh, 60rem);
@@ -133,14 +135,15 @@ body {
     mask-image: linear-gradient(to bottom, #000 75%, transparent);
   }
 
-  /* Dentro da caixa, a escultura fica deslocada para a direita e é cortada
-     pela borda da tela, como uma foto que "sangra" numa revista */
+  /* Dentro da caixa, a escultura fica um pouco deslocada para a direita e é
+     levemente cortada pela borda da tela, como uma foto que "sangra" numa
+     revista. O deslocamento é pequeno para o fio solto não sumir na borda. */
   .escultura__3d {
-    width: calc(100% + 16cqw);
+    width: calc(100% + 6cqw);
   }
 
   .escultura__imagem {
-    left: calc(50% + 8cqw);
+    left: calc(50% + 3cqw);
   }
 }
 
